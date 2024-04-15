@@ -1,0 +1,6 @@
+{
+
+    "VIN": {"S": "1234"},
+    "Manufacturer": {"S": "Honda"},
+    "Year": {"N": "2024"}
+}
