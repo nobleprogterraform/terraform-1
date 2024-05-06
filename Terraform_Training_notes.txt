@@ -1,0 +1,2296 @@
+==========Traditional IT challenges==========
+Let's start with how application delivery works
+in a traditional infrastructure model
+and how it evolved with the emergence of
+technologies such as cloud computing and Infrastructure as Code.
+Let's go back in time and look at how infrastructure was provisioned
+in the traditional IT model.
+Let us consider an organization that wants to roll out a new application.
+The business comes up with the requirements for the application.
+The business analyst then gathers the needs from the business,
+analyzes it,
+and converts it into a set of high-level technical requirements.
+This is then passed on to a solution architect.
+The solution architect then designs the architecture to be followed
+for the deployment of this application.
+This would typically include the infrastructure considerations,
+such as the type, spec, and count of servers that are needed,
+such as those for front-end web servers,
+back-end servers, databases, load balancers, et cetera.
+Following the traditional infrastructure model,
+this would have to be deployed
+in the organization's on-premise environment,
+which would mean making use of the assets in the data center.
+If additional hardware is needed, they would have to be ordered
+via the procurement team.
+This team will put in a new hardware request
+with the vendors.
+It can then take anywhere between a few days to weeks or even months
+for the hardware to be purchased and delivered to the data center.
+
+Finally, once the systems have been set up as per the standards,
+they can then be handed over to the application teams
+to deploy their applications.
+This deployment model,
+which is still quite commonly used today,
+has quite a few disadvantages.
+The turnover time can range between weeks to months,
+and that's just to get the systems in a ready state
+to begin the application deployment.
+
+Also, scaling up or scaling down the infrastructure on demand
+cannot be achieved quickly.
+The overall cost to deploy and maintain this model
+is generally quite high.
+While some aspects of the infrastructure provisioning process
+can be automated,
+
+Another major disadvantage of using this model is the underutilization
+of the compute resources.
+The infrastructure sizing activity is generally carried out
+well in advance
+and the servers are sized considering the peak utilization.
+The inability to scale up or down easily means
+that most of these resources would not be used during off-peak hours.
+
+In the past decade or so, organizations have been moving
+to virtualization and cloud platforms to take advantages of services
+provided by major cloud providers
+such as Amazon, AWS, Microsoft Azure,
+Google Cloud Platform, et cetera.
+By moving to cloud, the time to spin up the infrastructure
+and the time to market for applications
+are significantly reduced.
+This is because with cloud,
+you do not have to invest in or manage
+the actual hardware assets that you normally would
+in case of a traditional infrastructure model.
+The data center, the hardware assets, and the services are managed by
+the cloud provider.
+A virtual machine can be spun up in a cloud environment
+in a matter of minutes,
+and the time to market is reduced from several months,
+as in the case of a traditional infrastructure,
+to weeks in a cloud environment.
+Infrastructure costs are reduced when compared with
+the additional data center management and human resources costs.
+Cloud infrastructure comes with support for APIs,
+and that opens up
+a whole new world of opportunity for automation.
+Finally, the built-in auto-scaling and elastic functionality of
+cloud infrastructure reduces resource wastage.
+With virtualization and cloud,
+you could now provision infrastructure with a few clicks.
+
+While this approach is certainly faster and more efficient
+when compared to the traditional deployment methods,
+using the management console for resource provisioning
+is not always the ideal solution.
+It is okay to have this approach when we are dealing with
+a limited number of resources,
+but in a large organization
+with elastic and highly scalable cloud environment
+with immutable infrastructure, this approach is not feasible.
+
+Once provisioned, the systems still have to go through different teams
+with a lot of process overhead that increases the delivery time.
+The chances of human error are still at large,
+resulting in inconsistent environments.
+
+Different organizations started solving these challenges
+within themselves by developing their own scripts and tools.
+While some use simple shell scripts, others used programming languages
+such as Python, Ruby, Perl, or PowerShell.
+Everyone was solving the same problems,
+trying to automate infrastructure provisioning
+to deploy environments faster,
+and in a consistent fashion by leveraging the API functionalities
+of the various cloud environments.
+
+These evolved into a set of tools that came to be known as
+Infrastructure as Code.
+=================Types of IAC tools=================
+In this lecture,
+we will get introduced to Infrastructure as Code,
+which is commonly known as IAC.
+We will also take a look at commonly used IAC tools.
+we discussed about provisioning
+by making use of the management console
+of various cloud providers.
+The better way to provision cloud infrastructure
+is to codify the entire provisioning process.
+This way we can write and execute code,
+to define, provision, configure, update,
+and eventually destroy infrastructure resources.
+This is called as Infrastructure as Code or IAC.
+
+With Infrastructure as Code,
+you can manage nearly any infrastructure component
+as code,
+such as databases, networks, storage, or even application configuration.
+
+
+With Infrastructure as Code,
+we can define infrastructure resources
+using simple, human readable high-level language.
+Here is another example
+where we will be making use of Ansible
+to provision three AWS EC2 instances,
+making use of a specific AMI.
+
+There are several different tools part
+of the Infrastructure as Code family;
+Ansible, Terraform, Puppet,
+CloudFormation, Packer, SaltStack,
+Vagrant, Docker, et cetera.
+
+IAC can be broadly classified into three types;
+configuration management:
+Ansible, Puppet, SaltStack fall into this category.
+Tools used for server templating;
+Docker, Packer, and Vagrant fall into this category.
+Finally, we have infrastructure provisioning tools,
+such as Terraform and CloudFormation.
+
+
+The first type of IAC tool that we are going to take a look at
+is configuration management tools.
+These include tools
+like Ansible, Chef, Puppet, and SaltStack,
+and these are commonly used to install and manage software
+on existing infrastructure resources
+such as servers, databases, networking devices, et cetera.
+
+Next, server templating tools.
+These are tools
+like Docker, Vagrant, and Packer from HashiCorp
+that can be used to create
+a custom image of a virtual machine or a container.
+These images already contain
+all the required software and dependencies installed on them,
+The most common examples for server templated images
+are VM images
+Server templating tools also promote immutable infrastructure
+
+This means that,
+once the VM or a container is deployed,
+it is designed to remain unchanged.
+If there are changes to be made to the image,
+instead of updating the running instance,
+
+The last type of IAC tool
+which is specifically of interest for this course
+is provisioning tools.
+These tools are used to provision infrastructure components
+using a simple declarative code.
+These infrastructure components can range from servers
+such virtual machines, databases, VPCs, subnets,
+security groups, storage,
+and just about any services based on the provider we choose.
+
+While CloudFormation is specifically used
+to deploy services in AWS,
+Terraform is vendor agnostic
+and supports provider plugins for almost all major cloud providers.
+
+
+===================Why Terraform========================
+Let's now talk about Terraform
+and go over some of its features at a high level.
+As we discussed, Terraform is a popular IAC tool
+which is specifically useful as an infrastructure provisioning tool.
+Terraform is a free and open source tool
+which is developed by HashiCorp.
+It installs as a single binary which can be set up very quickly,
+allowing us to build, manage,
+and destroy infrastructure in a matter of minutes.
+
+One of the biggest advantages of Terraform is its ability
+to deploy infrastructure across multiple platforms
+including private and public cloud,
+such as on-premise vSphere cluster or cloud solutions
+such as AWS, GCP, or Azure to name a few.
+
+How does Terraform manage infrastructure
+on so many different kinds of platforms?
+This is achieved through providers.
+A provider helps Terraform manage third-party platforms
+through their API.
+Providers enable Terraform manage cloud platforms like AWS,
+GCP or Azure, as we have just seen,
+as well as network infrastructure like BigIP CloudFlare,
+DNS, Palo Alto Networks, and Infoblox.
+As well as monitoring and data management tools like DataDog,
+Grafana, Auth0, Wavefront, and Sumo Logic.
+Databases like InfluxDB, MongoDB, MySQL, PostgreSQL,
+and version control systems like GitHub, Bitbucket, or GitLab.
+
+Terraform uses HCL,
+which stands for HashiCorp Configuration Language,
+which is a simple, declarative language
+to define the infrastructure resources
+to be provisioned as blocks of code.
+
+All infrastructure resources can be defined
+within configuration files that has a .tf file extension.
+The configuration syntax is easy to read and write and pick up
+for a beginner.
+
+We cover the HCL syntax in more detail later in this course.
+We also have a lot of hands-on labs
+where you will be practicing working with these files
+
+
+How does Terraform do that?
+Terraform works in three phases; Init, Plan, and Apply.
+During the init phase, Terraform initializes the project
+and identifies the providers to be used for the target environment.
+During the plan phase,
+Terraform drafts a plan to get to the target state.
+Then in the apply phase, Terraform makes the necessary changes
+required on the target environment to bring it to the desired state.
+If for some reason the environment was to shift
+from the desired state, then a subsequent Terraform apply
+will bring it back to the desired state,
+by only fixing the missing component.
+Every object that Terraform manages is called a resource.
+A resource can be a compute instance,
+a database server in the cloud,
+or in a physical server on-premise that Terraform manages.
+Terraform manages the lifecycle of the resources
+from its provisioning to configuration to decommissioning.
+
+Terraform records the state of the infrastructure as it is seen
+in the real world and based on this,
+it can determine what actions to take when updating resources
+for a particular platform.
+Terraform can ensure that the entire infrastructure is always
+in the defined state at all times.
+
+
+Terraform can also import other resources outside of Terraform
+that were either created manually
+or by the means of other IAC tools,
+and bring it under its control
+so that it can manage those resources going forward.
+
+All these features make Terraform an excellent,
+enterprise-grade infrastructure provisioning tool.
+==============Types of IAC tools===================
+
+
+=====Lab========================
+1. Getting Started with Terraform
+
+1.1 Hashicorp Configuration Language (HCL)
+-In this lecture, we will understand the basics of HCL,which is HashiCorp Configuration Language,
+and then create a resource using Terraform.Let us first understand the HCL syntax.
+The HCL file consists of Blocks and Arguments.
+A block is defined within curly braces,
+and it contains a set of arguments in key value pair format
+representing the configuration data.
+But what is a block and what arguments does it contain?
+In its simplest form, a block in Terraform
+contains information about the infrastructure platform
+and a set of resources within that platform that we want to create.
+For example, let us consider a simple task.
+We want to create a file in the local system where Terraform is installed.
+
+we can create a configuration file called local.tf.
+And within this file, we can define a resource block, like this.
+And inside the Resource block,
+we specify the file name to be created as well as its contents
+using the block arguments.
+Let us break down the tf file to understand what each line means.
+The first element in this file is a block.
+Now this can be identified by the curly braces inside.
+The type of block we see here is called the "Resource" block,
+and this can be identified by the keyword called "Resource"
+in the beginning of the block.
+Following the keyword called resource,
+we have the declaration of the resource type that we want to create.
+This is a fixed value and depends on the provider
+where we want to create the resource.
+In this case, we have the resource type called "local_file."
+A resource type provides two bits of information.
+First is the Provider,
+which is represented by the word before the underscore in the resource type.
+Here we are making use of the "Local" provider.
+The word following the underscore, which is "File" in this case,
+represents the type of resource.
+The next and final declaration in this resource block is the resource name.
+This is the logical name used to identify the resource,
+and it can be named anything.
+But in this case, we have called it hcl-basic,
+
+we define the arguments for resource which are written in key value pair format.
+These arguments are specific to the type of resource we are creating,
+which in this case is the local_file.
+The first argument is the filename.
+To this, we assign the absolute path to the file we want to create.
+In this example, it is set to terraform-hcl.
+Now we can also add some content to this file by making use of the content argument.
+To this, let us add the value "Terraform introduction"
+The words filename and content
+are specific to the local_file resource we want to create,
+and they cannot be changed.
+In other words, the resource type of local_file
+expects that we provide the argument of filename and content.
+Each resource type has specific arguments that they expect.
+We will see more of that as we progress through the course.
+And that's it, we now have a complete HCL configuration file
+
+This file will be created in the current directory, and it'll contain a single line of data.
+The resource block that we see here
+is just one example of the configuration blocks used in HCL,
+but it is also a mandatory block needed to deploy a resource using Terraform.
+
+
+A simple Terraform workflow consists of four steps.
+First, write the configuration file.
+Next, run the Terraform Init command.
+And after that, review the execution plan using the terraform plan command.
+Finally, once we are ready, apply the changes using the Terraform Apply command.
+With the configuration file ready,
+we can now create the file resource using the terraform commands as follows,
+first, run the terraform init command.
+This command will check the configuration file
+and initialize the working directory containing the .TF file.
+One of the first things that this command does
+is to understand that we are making use of the Local provider
+based on the resource type declared in the resource block.
+It will then download the plugin
+to be able to work on the resources declared in the .TF file.
+From the output of this command,
+we can see that terraform init has installed a plugin called local.
+Next, we are ready to create the resource, but before we do that,
+if we want to see the execution plan that will be carried out by Terraform,
+we can use the command terraform plan.
+This command will show the actions that will be carried out by Terraform
+to create the resource.
+Terraform knows that it has to create resources,
+and this is displayed in the output similar to a diff command in GIT.
+The output has a + symbol next to the local_file type resource.
+This includes all the arguments that we specified
+in the .TF file for creating the resource.
+But you'll also notice that some default or optional arguments
+which we did not specifically declare in the configuration file
+is also displayed on the screen.
+The plus symbol implies that the resource will be created.
+Now remember, this step will not create the infrastructure resource yet.
+This information is provided for the user
+to review and ensure that all the actions
+to be performed in this execution plan is desired.
+After the review, we can create the resource.
+And to do this, we will make use of the Terraform Apply command.
+This command will display the execution plan once again,
+and it will then ask the user to confirm by typing Yes to proceed.
+Once we confirm, it will proceed with the creation of the resource,
+which in this case is a file.
+We can validate that the file was indeed created
+
+-We can also run the "terraform show command"
+within the configuration directory
+to see the details of the resource that we just created.
+This command inspects the state file and displays the resource details.
+
+-So, we have now created our first resource using Terraform.
+Before we end this section,
+let us go back and look at the configuration blocks in local.tf file.
+In this example, we used the resource type of local_file
+and learnt that the keyword before the underscore here
+is the provider name called "local."
+But how do we know that?
+How do we know what resource types
+other than local_file are available under the provider called local?
+And finally, how do we know what arguments are expected by the local_file resource?
+Earlier, we mentioned that Terraform supports over 100 providers,
+including the local provider we have used in this example.
+Other common examples are AWS to deploy resources in Amazon AWS cloud,
+Azure, GCP, Ali Cloud, et cetera.
+Each of these providers have a unique list of resources
+that can be created on that specific platform.
+And each resource can have a number of required or optional arguments
+that are needed to create that resource
+And we can create as many resources of each type as needed.
+It is impossible to remember all of these options,
+and of course, we don't have to do that.
+Terraform documentation is extremely comprehensive,
+and it is the single source of truth that we need to follow.
+If we look up the local provider within the documentation,
+we can see that it only has one type of resource called the local_file.
+Under the arguments section,
+we can see that there are several arguments that the resource block accepts,
+out of which only one is mandatory, the file name.
+
+
+1.2 - Updating and Destroying infrastructure using terraform
+In this lab,
+we will learn
+how to update and destroy
+infrastructure using Terraform.
+In the previous lecture,
+we saw how to create a local file.
+Now
+let us see how we can update
+and destroy this resource
+using Terraform.
+First,
+let us try to update this resource.
+Let us add in a file permission argument
+to update the permission of the file
+to 0700
+instead of the default value of 0777.
+This will remove any permission
+for everyone else except the owner of the file.
+Now,
+if we're on Terraform plan,
+we will see an output like this.
+From the output,
+we can see that the resource will be replaced.
+The minus plus symbol
+in the beginning of the resource name
+in the plan
+implies that it will be deleted
+and then recreated.
+The line with the command that reads "forces replacement"
+is responsible for the deletion and recreation.
+In this example,
+this is caused by the file permission argument
+that we added to the configuration file.
+Even though the change we made was trivial,
+Terraform will delete the old file
+and then create a new file
+with the updated permissions.
+This type of infrastructure is called
+an immutable infrastructure.
+We saw this briefly
+when we discussed the different types of IAC tools.
+If you want to go ahead with the change,
+use the Terraform apply command
+and then type "yes" when prompted.
+Upon confirmation,
+the existing file is deleted
+and recreated with the new permissions.
+To delete the infrastructure completely,
+run the Terraform destroy command.
+This command shows the execution plan as well,
+
+
+-- Hcl Basics lab questions:
+	- what is the file extension
+	- what is the resource type
+	- what is the resource name
+	- what is the name of the provider
+	- How to go to provider documentation to check arguments and possible values
+	- If you run terraform plan before init will it work?
+	- After you run terraform init, what is the version of provider plugin downloaded by terraform?
+	- If you specifiy incorrect argument (file instead of filename in local_file), what error do you get when running terraform plan?
+	- When using local_file, content of the file is visible both in apply output and in tfstate, what can you do to hide the sensitive content?
+		- use "local_sensitive_file" provider 
+		- if you run directly terraform plan or init now it will fail
+		- After terraform init the content is not visible as command output
+	- Finally destroy resource 
+	
+
+===============Terraform with AWS==================
+1. AWS Introduction:
+AWS is one of the most
+popular cloud computing platforms in the world.
+
+AWS offers hundreds of services,
+significantly higher than any other cloud provider,
+from infrastructure technologies like compute,
+storage, and databases etc.
+
+AWS has the most extensive global cloud infrastructure.
+This allows us to deploy services
+in a number of different globally distributed regions
+and within it multiple data centers known as availability zones.
+
+Terraform as an IaC tool is created by HashiCorp,
+which is an active member of the Amazon Partner Network
+and is also currently an Advanced Tier Technology Partner
+As we saw earlier,
+Terraform offers a dedicated AWS provider for the purpose
+of provisioning and managing AWS cloud-based services.
+With HCL,
+users can write configuration files using simple
+human-readable format that can be versioned,
+checked in to source control
+and easily distributed for reusability.
+
+We will start working with AWS resources from now on.
+Along the way, we will learn more Terraform concepts.
+But first, we will familiarize ourselves with the AWS platform.
+For that, we will first learn how to get started with AWS
+and set up an AWS account.
+
+2. Setup an AWS Account
+In order to work with AWS services we need to have AWS account created first.
+For this course I have created a free tier account myself for demonstration purpose, so
+we will use the free tier account to provision resources on AWS platform.
+But in case you want to create an AWS you can create yourself and work on these labs 
+using your own account. I can give you high level idea about how to create account in AWS.
+
+Once we have our account, We can see AWS Management Console.
+We can see all the services offered by AWS,
+click on the Services tab on the top left.
+As you can see,
+there are plenty of services listed here
+which are grouped under several categories.
+Under compute, we can see services like EC2,
+Lambda etc.
+Under storage, we can see services
+like S3, EFS, storage gateway.
+Under databases,
+we have DB such as the RDS
+and dynamoDB.
+
+
+3. Introduction to IAM
+- When we initially sign up for AWS we get an admin account with complete 
+administrative privileges. This account is also known as root account. 
+You can manage any service within AWS using the root account, but this
+is not the recommended approach.
+
+This user account can be compared to the root user in Linux and admin
+user in Windows, which have complete administrative privileges to carry
+out any task in the operating system.
+
+However, using the root account, we can create new users and assign
+them appropriate privileges.
+That should be the only purpose of using the root account.
+
+To start off, let us create a new users called test.
+When we create users in AWS, there are two types of access that we can
+configure; access to the management console and programmatic access.
+To access the management console, a user should have a
+valid username and a password.
+The programmatic access is used to interact programmatically by
+using command-line interfaces such as the terminal on Linux
+and Mac or PowerShell in Windows.
+To do this, we create an access key ID and a secret access key.
+We will make use this access key id and secret access key while creating
+resources in aws using terraform.
+
+Now let us see how to assign permissions to these users.
+As a standard, when a user is just created, AWS assigns least
+privilege permission to the user.
+What a user can or cannot do in AWS is decided by the permissions that
+are defined within an IAM policy.
+
+4. AWS IAM with Terraform
+First lets explore the documentation of aws_iam_user resource type in terraform registry.
+Now lets create AWS iam user. 
+Now if we run terraform plan command we see error about credentials .
+We can either hard code access key id, secret-access-key and region in provider block or
+we can provide env variables using export AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and AWS_REGION 
+
+Now lets create a policy in AWS so that we can refer to this policy and attach policy to newly created user
+Now lets attache policy to the user
+
+5. AWS S3 object
+S3 stands for Simple Storage Service.
+This service provides an infinitely scalable storage solution from AWS.
+
+It also offers high availability of data by storing it
+across multiple devices and availability zones in a region.
+
+S3 is an object based storage.
+It allows us to store objects or flat files, such as documents,
+images, and videos in the AWS cloud.
+This is equivalent to a file share storage, such as NFS
+
+Data in S3 is stored in the form of an S3 bucket.
+A bucket can be considered to be a container or a directory
+which stores all your files.
+You can create as many of these buckets as you
+need in your AWS account.
+Everything within a bucket is an object.
+
+AWS provides a simple web interface to create an S3 bucket
+via the Management Console.
+When creating a bucket in AWS, there are a couple of
+considerations to be followed.
+
+The bucket name must be unique.
+This is because when creating a bucket, AWS also
+creates a DNS name for it.
+This DNS name will be accessible from anywhere in the world.
+No two buckets, not even those which are created on different
+accounts, can have the same name.
+
+Secondly, the name should also be DNS-compliant.
+This means that there should not be any uppercases or underscores
+
+
+6. AWS Dynamo DB
+DynamoDB is a no SQL database solution provided by AWS.
+It is a highly scalable database that can cope with millions
+of requests from applications such as mobile and web.
+
+Dynamodb is a no SQL database.
+This means that it stores data in the form of key-value pairs
+and documents.
+
+In order to uniquely distinguish an item with every other item
+in the table, DynamoDB uses a primary key.
+
+7. Terraform remote state
+
+8. Terraform AWS EC2 instance
+In this lecture, we will learn about EC2 instances in AWS.
+Perhaps one of the most commonly used services from AWS
+or any cloud provider for that matter are virtual machines in the cloud.
+
+These virtual machines provide scalable compute
+that can be deployed in a matter of minutes.
+In AWS, they are called as EC2 instances,
+where EC2 stands for elastic compute cloud
+and just like any compute, virtual or physical,
+
+an EC2 instance would run an operating system such as a distribution of Linux or windows.
+We can then make use of these instances for deploying software such as database,
+web servers, application servers
+or pretty much anything that you would normally want to deploy in a physical
+or virtual machine, which is on premise.
+
+AWS EC2 provides pre-configured templates known as Amazon machine image or AMIs.
+These templates contain software configuration such as the operating system
+and any additional software to be deployed on these EC2 instances.
+Examples are Ubuntu 20.04, RHEL 8, Amazon Linux 2, windows 2019, et cetera.
+
+These AMIs have an ID which is specific to the region where we want to deploy the instance.
+
+EC2 also provides a number of different configurations of CPU,
+memory and networking capacity for the instances
+which are known as instance types.
+
+There are a wide selection of instance types to choose from
+that are optimized to fit different use cases.
+
+NOW lets create the EC2 instance by using aws_instance resource type 
+----------Connecting to instance from local 
+All right, so we now have the instance up and running,
+but how do we access it from our client machine.
+Since this is an Ubuntu EC2 instance,
+the logical answer would be for us to make use of an SSH client
+and then connect to the server,
+but what is the IP address of this machine and how do we allow SSH access to it?
+Which SSH key do we use to connect to it?
+We have not specified any of these in our Terraform configuration
+
+To do this, we'll make use of another resource type called AWS key pair.
+This resource makes use of an existing user supplied key pair
+that can be used to control the login access to the EC2 instance.
+There's only one mandatory argument called the public key
+
+Now that we have added the key based access control to our configuration,
+let us look at the networking that will allow users to connect from the local machine
+to the port 22 on our web server via the internet.
+
+For this, we have to make use of another resource type called AWS security group.
+Let's call this resource as SSH access.
+
+9. Terraform provisioners
+
+
+10. Terraform modules: (for code resuabilty, synonym to package)
+child module
+root module
+
+11. Terraform workspace:
+Terraform modules are a way to encapsulate reusable business logic in order to be DRY.
+Terraform Workspaces are intended to be a collection of configurations that represent a single environment,
+
+Workspaces should be used to provide multiple instances of a single configuration.
+ This means that you want to reuse the very same manifests to create the vers samy resources, 
+ but provide a different configuration for these resources, for example to use a different 
+ image for a cloud server
+
+======================================
+
+
+
+
+
+=========================CKA==========================
+
+2.3 ETCD for beginners
+	- ETCD is a distributed, reliable, key-value store that is simple, secure, and fast
+	- When you run ETCD, it starts a service that listens on port 2379 by default.
+		You can then attach any clients to the ETCD service to store and retrieve information.
+		A default client that comes with ETCD is the ETCDCTL client. 
+		The ETCDCTL client is a command line client for ETCD.
+		You can use it to store and retrieve key-value pairs
+	- You might come across different versions of commands while exploring ETCD and related articles online
+		so it's important to understand the history of ETCD releases. 
+		Version 2.0 or less before ETCD was incubated to CNCF and version 3.0 after that
+		So the API versions changed between v2.0 and V3.0, so that means the ETCDCTL commands changed as well
+		Run the ./etcdctl --version command and it should tell you if it's set to v2.0 or v3.0 (look for API version in output)
+		And so if you run the ETCDCTL command without any options, then it lists all the commands that it supports and these are for v2.0
+		So, to change ETCDCTL to work with the API v3.0, either set the environment variable called ETCDCTL_API=3 for each command.
+		Or you can export it as an environment variable for the entire session using the export command (export ECTDCTL_API = 3)
+
+2.4 ETCD in Kubernetes
+	- In this lecture, we will talk about etcd's role in Kubernetes.
+		The etcd data store stores information regarding the cluster such as the nodes, pods, configs, secrets, accounts, roles,
+		role bindings, and others.
+		Every information you see when you run the kube control get command is from the etcd server
+		Every change you make to your cluster such as adding additional nodes, deploying pods 
+		or replica sets are updated in the etcd server
+		Depending on how you set up your cluster, etcd is deployed differently in kubernetes
+	- There are two types of Kubernetes deployments, one deployed from scratch and other using the kubeadm tool
+		1. If you set up your cluster from scratch, then you deploy etcd by downloading the etcd binaries yourself,
+		installing the binaries and configuring etcd as a service in your master node yourself
+		There are many options passed into the service, The only option to note for now is the advertised client URL
+		etcd.server --advertised-client-urls https://${INTERNAL_IP}:2379 This is the address on which etcd listens
+		This is the URL that should be configured on the kube API server when it tries to reach the etcd server
+		2. If you set up your cluster using kubeadm,then kubeadm deploys the etcd server for you as a pod
+		in the kube system namespace (you can get this pod info using kubectl get pods -n kube-system)
+		To list all keys stored by Kubernetes, run the etcd control get command like below
+		kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
+		Kubernetes stores data in the specific directory structure.The root directory is a registry, and under that,
+		you have the various Kubernetes constructs,such as minions or nodes, pods, replica sets,deployments, etc
+		In a high availability environment, you will have multiple master nodes in your cluster.
+		Then you will have multiple etcd instances spread across the master nodes. In that case, make sure that the etcd instances
+		know about each other by setting the right parameter in the etcd service configuration.
+		The initial cluster option is where you must specify the different instances of the etcd service.
+		
+2.5 ETC Commands
+	- Version 2 commands
+	etcdctl backup
+	etcdctl cluster-health
+	etcdctl mk
+	etcdctl mkdir
+	etcdctl set
+	- version 3 version 3
+	etcdctl snapshot save 
+	etcdctl endpoint health
+	etcdctl get
+	etcdctl put
+	- Apart from that, you must also specify path to certificate files so that ETCDCTL can authenticate to the ETCD API Server.
+	--cacert /etc/kubernetes/pki/etcd/ca.crt     
+	--cert /etc/kubernetes/pki/etcd/server.crt     
+	--key /etc/kubernetes/pki/etcd/server.key
+	kubectl exec etcd-master -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl get / --prefix --keys-only 
+	--limit=10 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt  
+	--key /etc/kubernetes/pki/etcd/server.key
+	
+2.6 Kube-API server
+	- Earlier, we discussed that the kube-apiserver is the primary management component in Kubernetes. When you run a kubectl command,
+		the kubectl utility is in fact reaching to the kube-apiserver
+	- Let's look at an example of creating a pod.When you do that, as before,the request is authenticated first and then validated.
+		In this case, the API server creates a pod object without assigning it to a node. Updates the information in the etcd server,
+		updates the user that the pod has been created. The scheduler continuously monitors the API server 
+		and realizes that there is a new pod with no node assigned. The scheduler identifies the right node to place the new pod on
+		and communicates that back to the kube-apiserver.
+		The API server then updates the information in the etcd cluster.
+		The API server then passes that information to the kubelet in the appropriate worker node.
+		The kubelet then creates the pod on the node and instructs the container runtime engine to deploy the application image.
+		Once done, the kubelet updates the status back to the API server and the API server then updates the data back in the etcd cluster.
+		A similar pattern is followed every time a change is requested
+	-When you're setting up Kubernetes manually, then the kube-apiserver is available as a binary in the Kubernetes release page.
+		Download it and configure it to run as a service on your Kubernetes master node.
+		The kube-apiserver is run with a lot of parameters, There are different modes of authentication, 
+		authorization, encryption and security. And that's why you have so many options.
+		A lot of them are certificates that are used to secure the connectivity between different components
+	- So how do you view the kube-apiserver options in an existing cluster?
+		It depends on how you set up your cluster. If you set it up with a kubeadmin tool,
+		the kubeadmin deploys the kubeadmin-apiserver as a pod in the kube-system namespace on the master node(kubectl get pods -n kube-system).
+		You can see the options within the pod definition file, located at etc/kubernetes/manifest folder.
+		In a non-kubeadmin setup,you can inspect the options by viewing the kube-apiserver service located
+		at etc/systemd/system/kube-apiserver.service.
+		You can also see the running process and the effective options by listing the process 
+		on the master node and searching for kube-apiserver. By running ps -aux | grep kube-apiserver
+
+2.7 Kube Controller manager
+	- As we discussed earlier the Kube controller manager, manages various controllers in Kubernetes.
+	- In the Kubernetes terms a controller is a process that continuously monitors the state of various components within the system
+		and works towards bringing the whole system to the desired functioning state.
+	- For example, the node controller is responsible for monitoring the status of the nodes and taking necessary actions to
+		keep the applications running
+		The note controller tests the status of the notes every five seconds.
+		That way the note controller can monitor the health of the notes. If it stops receiving heartbeat from a note
+		the note is marked as unreachable but it waits for 40 seconds before marking it unreachable.
+		After a note is marked unreachable it gives it five minutes to come back up.
+		If it doesn't, it removes the PODs assigned to that note and provisions them on the healthy ones if the PODs are part of a replica set. 
+		The next controller is the replication controller.It is responsible for monitoring the status 
+		of replica sets and ensuring that the desired number of PODs are available at all times within the set. 
+		If a POD dies, it creates another one.
+	- There are various types of controllers, They're all packaged into a single process known
+		as the Kubernetes Controller Manager.When you install the Kubernetes controller manager	the different controllers 
+		get installed as well
+	- If you set it up with the Kube admin tool, Kube admin deploys the Kube controller manager
+		as a POD in the Kube system namespace on the master node. (kubctl get pods -n kube-system)
+		You can see the options within the POD definition file located at etc/kubernetes/manifest folder.
+		cat /etc/kubernetes/manifest/kube-controller-manager.yaml
+	- In a non Kube admin setup, you can inspect the options by viewing the Kube Controller Managers service located 
+		at the services directory.
+		cat /etc/systemd/system/kube-controller-manager.service
+	- You can also see the running process and the effective options by listing the process on the master node 
+		and searching for Kube Controller Manager. ps -aux | grep kub-controller-manager 
+
+2.8 Kube Scheduler:
+	- The Kubernetes scheduler is responsible for scheduling pods on nodes.
+	- Remember, the scheduler is only responsible for deciding which pod goes on which node.
+		It doesn't actually place the pod on the nodes. That's the job of the kubelet.
+	- First of all, why do you need a scheduler? In Kubernetes, the scheduler decides which nodes
+		the pods are placed on depending on certain criteria. You may have pods with different resource requirements.
+		It may have a set of CPU and memory requirements
+	- In the first phase, the scheduler tries to filter out the nodes that do not fit the profile for this pod.
+		For example, the nodes that do not have sufficient CPU and memory resources requested by the pod
+	- The scheduler ranks the nodes to identify the best fit for the pod. It uses a priority function to assign a score
+		to the nodes on a scale of zero to 10
+	- So how do you install the kube-scheduler? Download the kube-scheduler binary rom the Kubernetes release page,
+		extract it, and run it as a service.
+	-  if you set it up with the kubeadm tool, the kubeadm tool deploys the kube-scheduler
+		as a pod in the kube system namespace on the master node. You can see the options within the pod definition file
+		located at (cat /etc/kubernetes/manifests/kube-scheduler.yaml)
+	- ps -aux | grep kub-scheduler
+
+2.9 Kubelet
+	- The kubelet in the Kubernetes worker node registers the node with a Kubernetes cluster.
+		When it receives instructions to load a container or a pod on the node,
+		it requests the container runtime engine, which may be Docker, to pull the required image and run an instance.
+		The kubelet then continues to monitor the state of the pod and containers in it and reports to the kube API server
+		on a timely basis.
+	- If you use the kubeadm tool to deploy your cluster,it does not automatically deploy the kubelet.
+		Now that's the difference from other components. You must always manually install the kubelet on your worker nodes.
+		Download the installer, extract it, and run it as a service.
+	- You can view the running kubelet process and the effective options by listing the process ps -aux | grep kubelet
+
+2.10 Kube proxy
+	- Within a Kubernetes cluster, every pod can reach every other pod. This is accomplished by deploying
+		a pod networking solution to the cluster.
+	- A pod network is an internal virtual network that spans across all the nodes in the cluster to which all the pods connect to.
+		Through this network, they're able to communicate with each other.
+	- A better way for the web application to access the database is using a service.
+		So we create a service to expose the database application across the cluster. The web application can now access the database
+		using the name of the service, DB
+		The service also gets an IP address assigned to it. Whenever a pod tries to reach the service using its IP
+		or name, it forwards the traffic to the backend pod, in this case, the database
+	- But what is this service, and how does it get an IP? Does the service join the same pod network?
+		The service cannot join the pod network	because the service is not an actual thing.
+		it is not a container like pods,so it doesn't have any interfaces or an actively listening process.
+		It is a virtual component that only lives in the Kubernetes memory.
+		But then, we also said that the service should be accessible
+		across the cluster from any nodes. So how is that achieved? That's where kube-proxy comes in.
+	- Kube-proxy is a process that runs on each node in the Kubernetes cluster. Its job is to look for new services,
+		and every time a new service is created, it creates the appropriate rules on each node
+		to forward traffic to those services to the backend pods. One way it does this is using iptables rules.
+		In this case, it creates an iptables rule on each node in the cluster to forward traffic
+		heading to the IP of the service
+	- To install kube-proxy. Download the kube-proxy binary from the Kubernetes release page, extract it,
+		and run it as a service. The kubeadm tool deploys kube-proxy as pods on each node.
+		In fact, it is deployed as a DaemonSet, so a single pod is always deployed on each node in the cluster
+
+2.11 PODs
+	- with Kubernetes, our ultimate aim is to deploy our application in the form of containers
+		on a set of machines that are configured as worker nodes in a cluster. However, Kubernetes does not deploy containers directly
+		on the worker nodes. The containers are encapsulated into a Kubernetes object known as pods.
+		A pod is a single instance of an application. A pod is the smallest object that you can create in Kubernetes.
+	- pods usually have a one-to-one relationship with the containers, but are we restricted to having a single container
+		in a single pod? No, a single pod can have multiple containers except for the fact that they're usually not multiple containers
+		of the same kind. It can be a helper container for main container 
+	-  how to deploy pods.Earlier we learned about the kubectl run command. What this command really does is
+		it deploys a Docker container by creating a pod, so it first creates a pod automatically
+		and deploys an instance of the NGINX Docker image. kubectl run nginx --image nginx
+		The kubectl get pods command helps us see the list of pods. kubectl get pods
+		kubectl get pods -o wide 
+		kubectl describe pods
+		kubectl describe pod pod-name
+		kubectl delete pod webapp
+		kubectl get nodes (to see all nodes)
+		kubectl get node node01 --show-labels
+		kubectl run redis --image=redis --dry-run=client -o yaml
+		kubectl run redis --image=redis --dry-run=client -o yaml > redis.yaml
+		kubectl create -f redis.yaml
+		kubectl apply -f redis.yaml (to rerun yaml after editing yaml file)
+		kubectl edit 
+		
+2.12 YAML in kubernetes
+	- Kubernetes uses YAML files as inputs for the creation of objects such as pods, replicas, deployments, services, et cetera.
+	- 4 top level fields in every yaml are the API version, kind, metadata, and spec.
+	- apiVersion: This is the version of the Kubernetes API (possible values v1, apps/V1beta,extensions/V1beta)
+	- kind: type of the object we are trying to create (pod,replica-set,deployment,service etc)
+	- metadata: The metadata is data about the object like its name, labels, et cetera. Its disctionary 
+	- spec: the specification section which is written as spec. Depending on the object we are going to create,
+		this is where we would provide additional information to Kubernetes pertaining to that object.
+		This is going to be different for different objects so it's important to understand or refer to
+		the documentation section to get the right format for each. for pods its single item List with 
+		containers:
+			- name: NGINX-container
+			  image: nginx
+	- To crate the pods execute cubectl create -f pod-definition.yaml 
+	- To get pods execute kubectl get pods
+	- to see details of a pod kubectl describe pod myapp-pod
+
+2.13 Replica sets
+	- Controllers are the brain behind Kubernetes. They are the processes that monitor Kubernetes objects and respond accordingly
+	- The Replication Controller helps us run multiple instances of a single pod in the Kubernetes cluster,
+		thus providing high availability.
+		Another reason we need Replication Controller is to create multiple pods to share the load across them.
+	- It's important to note that there are two similar terms. Replication Controller and Replica Set.
+		Both have the same purpose, but they're not the same. Replication Controller is the older technology
+		that is being replaced by Replica Set. Replica Set is the new recommended way to set up replication
+	- version in replication controller is v1 vs apps/v1 in replica set 
+	- kind in replication controller is ReplicationController vs ReplicaSet in replica set
+	- under spec, template is same for both but selector is optional in replication controller but mandatory in replica set
+	- The selector section helps the Replica Set identify what pods fall under it.
+		selector is used because Replica Set can also manage pods that were not created as part of the Replica Set creation.
+	- under template we need to write the whole pod definition starting metadat section so that replication controller and 
+		replica set can create a new instance if none of pods are availabel to scale up
+	- final secion is replicas: 3 in yaml to define minimum number of instances 
+	- to create replication controller kubectl create -f RC-definition.yaml 
+	- to view the list kubectle get replicationcontroller
+	- How to update replicas from 3 to 6, mulitple ways, one way is to update yaml file and run kubectl replate -f rc-def.yaml
+	- second way, kubectl scale --replicas=6 -f rc-def.yaml (not udpate file automatically to 6)
+	- third way, kubectl scale --replicas=6 replicaset myapp-replicaset
+	- kubectl get replicaset, kubectl get replicaset -o wide, kubectl describe replicaset rc-name, kubectl describe replicasets
+	- kubectl edit replicaset my-replica-set (then update and save the file)
+	
+2.14 Deployment
+	- Deployment is a Kubernetes object that comes higher in the hierarchy of replica set and pods.
+	- The deployment provides us with the capability to upgrade the underlying instances seamlessly using rolling updates, undo changes,
+		and pause, and resume changes as required
+	- A deployment definition file has apiVersion:apps/v1 kind:Deployment metadata (similar to others and have name and labels)
+		and a spec that has template (for pod definition), replicas and selector (for creating replica set and pods
+		as part of deployment definition itself)
+	- kubectl get deployment
+	- kubectl describe deployment dep-name
+	- kubectl describe deployments
+	- kubectl create deployment --image=httpd:1.4-alpine httpd-frontend --replicas=3 (replicas only in k8s versin 1.19+only)
+		--dry-run=client -o yaml > new-dep.yaml
+	- kubectl create -f new-dep.yaml
+	- To edit the deployment: kubectl edit deployment deployment-name, update the deployment and save the file will edit the deployment
+
+2.15 Services: Nodeport
+	- The Kubernetes Service is an object, just like Pods, ReplicaSet, or Deployments. Kubernetes Services enable communication
+		between various components within and outside of the application.
+		Kubernetes Services helps us connect applications together with other applications or users
+	- NodePort service is the service that listens to a port on the node and forward request to the Pods
+	- There are three ports involved.The port on the Pod where the actual web container is running (eg 80)
+		and it is referred to as the target port. because that is where the service forwards their request to
+		The second port is the port on the service itself. It is simply referred to as the port.
+		The service is, in fact, like a virtual server inside the node. Inside the cluster it has its own IP address,
+		and that IP address is called the ClusterIP of the service
+		And finally, we have the port on the node itself which we use to access the web server externally, and that is as the node port
+		node ports can only be in a valid range which by default is from 30,000 to 32,767	
+	- The service definition file has apiVersion: v1 kind: Service metadata and spec has type:NodePort and ports list.
+		ports list has target:80 (optional), port:80 (mandatory) and nodePort:30008(optional)
+		selector is used to connect service to pods. If multiple pods fall in the selector lables than all pods are load balanced(random)
+		for incoming requests
+	- When pods are distributed across multiple nodes, in this case k8s creates a service which spans across all the nodes in cluster
+		and maps the target port(eg 80) to same node port (eg 30008) on all nodes in cluster. 
+		This way you can access your application using the IP of any node in the cluster and using the same port number
+		which in this case is 30,008
+	- kubectl create -f service-definition.yaml
+	- kubectl get services 
+
+2.16 Service: ClusterIP
+	- You may have a number of pods running a front end web servers, another set of pods running a backend server,
+		a set of pods running a key value store like Redis and another set of pods may be running a persistent database like MySQL.
+		The web front end server needs to communicate to the backend servers, and the backend servers need to communicate
+		to the database as well as the Redis services, et cetera
+	- So what is the right way to establish connectivity between these services or tiers of my application?
+		The pods all have an IP address assigned to them, but these IPs, as we know, are not static.
+		These pods can go down anytime and new pods are created all the time and so you cannot rely on these IP addresses
+		for internal communication between the application
+	- A Kubernetes service can help us group the pods together and provide a single interface to access the pods
+		in a group
+	- This enables us to easily and effectively deploy a microservices based application on Kubernetes cluster.
+		Each layer can now scale or move as required without impacting communication
+		between the various services. Each service gets an IP and name assigned to it inside the cluster, and that 
+		is the name that should be used by other pods to access the service.
+		This type of service is known as ClusterIP
+	- apiVersion:v1, kind:Service, spec: type: ClusterIP(default) ports: -targetPort:80 port:80
+
+2.17 Service: LoadBalancer
+	- To load balance requests on the all nodes in the cluster where pods are running 
+	- Only usable on cloud platforms with support of native load balancer (eg AWS, GCP, Azure etc)
+	- Service definition is similar to NodePort except type: LoadBalancer
+
+2.18 Namespace
+	- So far we have created objects such as pods, deployments, and services in our cluster.
+		we have been doing all this within a name space.This name space is known as the default name space
+		and it is created automatically by Kubernetes when the cluster is first set up.
+	- Kubernetes creates a set of pods and services for its internal purpose, such as those required by the networking solution,
+		the DNS service, etcetera. To isolate these from the user and to prevent you from accidentally deleting 
+		or modifying these services, Kubernetes creates them under another name space created at cluster startup named kube-system
+	- A third name space created by Kubernetes automatically is called kube-public. This is where resources
+		that should be made available to all users are create
+	- One example of using a namespace is if you wanted to use the same cluster for both dev and production environment,
+		but at the same time, isolate the resources between them, you can create a different name space for each of them.
+		That way, while working in the dev environment,you don't accidentally modify resources in production
+	- You can also assign quota of resources to each of these name spaces. That way, each name space is guaranteed a certain amount
+		and does not use more than its allowed limit
+	- the resources within a name space can refer to each other simply by their names. To reach a service in another name space,
+		you must append the name of the namespace to the name of the service.
+		For example, for the web pod in the default name space to connect to the database in the dev environment or namespace,
+		use the servicename.namespace.svc.cluster.local format
+		dbservice.dev.svc.cluster.local When a service is created a DNS entry is added automatically in this format
+	- cluster.local is the default domain name of the Kubernetes cluster and SVC is the sub domain for service
+	- To list pods in another name space kubectl get pods --namespace=kube-system
+	- kubectl create -f pod-def.yaml --namespace=dev or put namespace: dev in pod-def.yaml under metadata section 
+	- To create a new namespace create definition file with apiVersion:v1, kind:Namespace, metadata: Name:dev
+		or by running command kubectl create namespace dev 
+	- To switch namespace to dev, kubectl config set-context $(kubectl config current-context) --namespace=dev
+	- To view pods in all namespaces, kubectl get pods --all-namespaces
+	- To limit resources in a namespace, create a resource quota using yaml definition file
+		apiVersion: v1, kind: ResourceQuota, spec: hard: pods: "10" requests.cpu: "4" requests.memory:5Gi limits.cpu:"10"
+		limits.memory: 10Gi
+		
+2.19 Imparative Vs Declarative
+	- In the infrastructure-as-code world, there are different approaches in managing the infrastructure, and they are classified
+		into imperative and declarative approaches
+	- When you create your objects by using commands eg kubectl run or by running kubectl create command with obeject definition yaml files
+		than this approach is called imparative, as you are providing each and every step to create resources and objects.
+	- When using declarative approach you just specify the resource or objects using config files
+		and IAC tool or kubernetes smartly create/update/delete resources/objects using existting/past configuration 
+		and kubernetes apply new changes over it. 
+	- So in the declarative approach, you will run the kubectl apply command for creating, updating, or deleting an object.
+		The apply command will look at the existing configuration and figure out what changes need to be made to the system.
+
+2.20 Imparative commands for certification help
+	- If you simply want to test your command , use the --dry-run=client option. This will not create the resource, instead, 
+		tell you whether the resource can be created and if your command is right
+	- -o yaml: This will output the resource definition in YAML format on screen.
+	- Create an NGINX Pod: kubectl run nginx --image=nginx
+	- Generate POD Manifest YAML file: kubectl run nginx --image=nginx --dry-run=client -o yaml
+	- Create a deployment: kubectl create deployment --image=nginx nginx
+	- Generate Deployment YAML file: kubctl create deployment --image=nginx nginx --dry-run=client -o yaml
+	- Generate Deployment with 4 Replicas: kubectl create deployment --image=nginx nginx --dry-run=client --replicas=4
+	- You can also scale a deployment using the kubectl scale command: kubectl scale deployment nginx --relicas=4
+	- Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379:
+		kubectl expose pod redis --port=6739 --name redis-server --dry-run=client -o yaml
+		(This will automatically use the pod's labels as selectors)
+		or kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml 
+		(This will not use the pods labels as selectors, instead it will assume selectors as app=redis. 
+		You cannot pass in selectors as an option. So it does not work very well if your pod has a different label set. 
+		So generate the file and modify the selectors before creating the service)
+	- Create a pod called httpd using the image httpd:alpine in the default namespace. 
+		Next, create a service of type ClusterIP by the same name (httpd). The target port for the service should be 80
+		kubectl run httpd --image=httpd:alpine --port=80 --expose
+		
+2.21 kubectl apply command:
+	- kubectl apply command can be used to manage objects in a declarative way.
+	- apart from our local configuration file wiht object definitions, k8s manages a live configuration and a configuration
+		json file called last applied configuration to decide the latest changes 
+	- But where is this json file that has the last applied configuration stored? Well, it's stored on the live object configuration
+		on the Kubernetes cluster itself as an annotation named a last-applied-configuration.
+	
+
+3. Scheduling
+3.1 Manual scheduling:
+	- What do you do when you do not have a scheduler in your cluster? You probably do not want to rely on the built-in scheduler,
+		and instead want to schedule the pod yourself.
+	- So how exactly does a scheduler work in the backend? Let's start with a simple pod definition file.
+		Every pod has a field called Node Name that, by default, is not set. You don't typically specify this field
+		when you create the pod manifest file. Kubernetes adds it automatically. The scheduler goes through all the pods
+		and looks for those that do not have this property set. Those are the candidates for scheduling. It then identifies the right 
+		node for the pod by running the scheduling algorithm
+	- So if there is no scheduler to monitor and schedule nodes, what happens? The pods continue to be in a pending state
+	- Well, without a scheduler, the easiest way to schedule a pod is to simply set the node name field to the name of the node
+		in your pod specification file while creating the pod. You can only specify the node name at creation time.
+		Kubernetes won't allow you to modify the node name property of a pod
+	- so another way to assign a node to an existing pod is to create a binding object and send a POST request
+		to the pod's binding API,
+		
+3.2 Labels and Selectors:
+	- Labels and selectors are a standard method to group things together. Say, you have a set of different species
+		a user wants to be able to filter them based on different criteria, eg class, kind, color etc
+	- Labels are properties attached to each item so you add properties to each item eg, for their class, kind, and color.
+		Selectors help you filter these items
+	- We see labels in selectors used everywhere, such as the keywords you tag to YouTube videos
+		or blogs that help users filter and find the right content
+	- So, how are labels and selectors used in Kubernetes? We have created a lot of different types of objects in Kubernetes,
+		pods, services, replica sets, deployments, et cetera. For Kubernetes, all of these are different objects.
+		Over time, you may end up having hundreds or thousands of these objects in your cluster. Then you will need a way to filter
+		and view different objects by different categories, such as to group objects by their type or view objects by application
+		or by their functionality.
+	- To select pod with lables: kubectl get pod --selector tier=frontend,env=prod,bu=finance	
+	- To select all objects for given label: kubectl get all --selector env=prod --no-headers | wc -l
+	- While labels and selectors are used to group and select objects, annotations are used to record other details
+		for informatory purpose. For example, tool details like name, version, build information, et cetera,or contact details, 
+		phone numbers, email IDs, et cetera that may be used for some kind of integration purpose
+
+3.3 Taints and Tolerations
+	- we will discuss about the pod-to-node relationship and how you can restrict what pods are placed on what nodes
+	- lets assume that we have dedicated resources on node one for a particular use case or application.
+		So we would like only those pods that belong to this application to be placed on that node.
+		First, we prevent all pods from being placed on the node by placing a taint on the node.
+		Now no pods can be place on this node which solves half of the problem, other half is to allow certain pods to be scheduled on this node
+	- To enable certain pods to be placed on this node. For this we must specify which pods are tolerant to this particular taint
+		remember, taints are set on nodes and tolerations are set on pods
+	- kubectl taint nodes command to taint a node: kubectl taint nodes node-name app=blue:taint-effect(NoSchedule|PreferNoSchedule|NoExecute)
+	- To remove taint from a node: kubectl taint nodes controlplan app=blue:NoSchedule-
+	- The taint effect defines what would happen to the pods if they do not tolerate the taint. There are three taint effects,
+		no schedule, which means the pods will not be scheduled on the node, which is what we have been discussing.
+		Prefer no schedule, which means the system will try to avoid placing a pod on the node, but that is not guaranteed.
+		And third is no execute, which means that new pods will not be scheduled on the node and existing pods on the node, if any, will be evicted
+		if they do not tolerate the taint. These pods may have been scheduled on the node before the taint was applied to the node.
+	- To add a toleration to a pod, first pull up the pod definition file, under spec section add tolerations: list of key,operator,value and effect
+		where key="app", operator="Equal", value="blue" and effect="NoSchedule"
+	- Remember taints and tolerations are only meant to restrict nodes from accepting certain pods.
+		it does not guarantee that a pod will always be placed on a certain node.
+		So remember, taints and tolerations does not tell the pod to go to a particular node.
+		Instead, it tells the node to only accept pods with certain tolerations. If your requirement is to restrict a pod to certain nodes,
+		it is a achieved through another concept called as node affinity
+	- scheduler does not schedule any pods on the master node. Because when the Kubernetes cluster is first set up, a taint is set on the 
+		master node automatically that prevents any pods from being scheduled on this node.
+		To see the tains on master node: kubectl describe node kubemaster | grep Taints
+
+3.4 Node selector
+	- we can set a limitation on the pods so that they only run on particular nodes (for example larger nodes with more compute power or resources)
+	- There are 2 ways of doing it, first is node selector which is simple and easy and second is node affinity
+	- For node selector we update pod definition file by adding nodeSelector property with key-value pairs of node labels
+		The scheduler uses these labels to match and identify the right node to place the pods on.
+	- To label a node: kubectl label nodes node-name size=Large
+	- If we would like to say something like place the pod on a large or medium node, or any nodes that are not small.
+		You cannot achieve this using node selectors. For this, node affinity and anti-affinity
+
+3.5 Node Affinity
+	- We cannot provide advanced expressions like "or" or not with node selectors. The node affinity feature provides us with advanced capabilities
+		to limit pod placement on specific nodes.
+	- spec:
+		affinity:
+			nodeAffinity:
+				requiredDuringSchedulingIgnoredDuringExecution:
+					nodeSelectorTerms:
+						- matchExpressions:
+							- key: size
+							  Operator: In (or NotIn, Exists with no values, 
+							  values:
+								- Large
+								- Medium
+	- But what if node affinity could not match a node with a given expression? In this case, what if there are no nodes
+		with the label called size? Say we had the labels and the pods are scheduled. What if someone changes the label on the node
+		at a future point in time. All of this is answered by the long sentence like property under node affinity
+	- There are currently two types of node affinity available,
+		requiredDuringSchedulingIgnoredDuringExecution and
+		preferredDuringSchedulingIgnoredDuringExecution
+	- For required type if a matching node is not found, pod is not specheduled 
+	- For preferred type if a matching node is not found, pod is scheduled on any node availabel
+	- Ignored during execution means if a label is changed on a node after pod has been scheduled then there will be not changes made on pod
+
+3.6 Taints & Tolerations with Node Affinity
+	- If we have 3 nodes and 3 pods that we want to have 1:1 mapping between pods and nodes (without impacting other nodes and pods in same 
+		cluster) then in such usecase we can combine both Taints-Tolerations with NodeAffinity. 
+	- Taints-Tolerations will not allow other pods in cluster to be scheduled on nodes and NodeAffinity will force our pods to be scheduled 
+		in our specified 3 nodes only.
+
+3.7 Resource Requirements and Limits
+	- whenever a pod is placed on a node, it consumes the resources available on that node. you can specify the amount of CPU
+		and memory required for a pod when creating one, and this is known as the resource request for a container
+	- when the scheduler tries to place the pod on a node, it uses these numbers to identify a node which has sufficient amount of resources 
+		available
+	- To do this you add resources section under containers in pod definition file. Under resources, put requests under which 
+		memory: "4Gi" and cpu: 2
+	- 1 CPU means 1 AWS vCPU, 1 GCP core, 1 Azure Core, 1 Hyperthread. cpu can also be 0.1 or 100m (m stands for milli). Minimum cpu
+		allowed is 1m.
+	- Memory can be 1G (Gigabyte), 1M(Megabyte), 1K(kilobyte), 1Gi(Gibibyte), 1Mi(Mebibyte), 1Ki(Kibibyte)
+	- by default, a container has no limit to the resources it can consume on a node. However, you can set a limit for the resource 
+		usage on these pods. To do this specify limits section under resources. Under limits put memory: "2Gi" and cpu: 1
+	- A container cannot use more CPU resources than its limit. However, this is not the case with memory.A container can use more memory 
+		resources than its limit. So if a pod tries to consume more memory than its limit constantly, the pod will be terminated
+		and you'll see that the pod terminated with an OOM (out of memoery)error in the logs or in the output of the described command 
+		when you run it
+	- Lets consider a scenario where 2 pods are competing for resources in a single node, there are 4 types of configuration possible here
+		1. No Requests, No Limits (Not ideal as pod 1 can consume all CPUs with no cpu available for pod 2)
+		2. No Request, Limits set (taken as limits=request,Not idea as even if there are free CPUs not used by pod2, pod1 can not access them)
+		3. Request set, Limits Set (better as minimum cpu is guaranted but not ideal as can not use not utilize cpus)
+		4. Request set, No Limits (ideal as minimum CPU is guaranted and in case pod1 needs more cpu and pod2 is not using then pod1 can use it)
+	- So remember you need to make sure that all the pods have some requests set because that's the only way a pod
+		will have resources guaranteed. So if there is any pod that has no request set and there are no limits set for all the other pods,
+		then it's possible that any pod could consume all of the memory.
+	- by default, Kubernetes does not have resource requests or limits configured for pods. But then how do we ensure that every pod created 
+		has some default set? Now this is possible with limit ranges. This is applicable at the namespace level
+		apiVersion: v1, kind: LimitRange, 
+			spec:
+			  limits:
+				- default:
+					cpu: 500m (limit)
+				  defaultRequest:
+					cpu: 500m (request)
+				  max:
+					cpu: "1" (limit)
+				  min:
+					cpu: 100m (request)
+				  type: Container
+	- So if you create or change a limit range, it does not affect existing pods. It'll only affect newer pods that are created
+		after the limit range is created or updated
+	- I there any way to restrict the total amount of resources that can be consumed by applications deployed in a Kubernetes cluster?
+		For example, if we had to say that all the pods together shouldn't consume more than this much of CPU or memory
+		what we could do is create quotas at a namespace level
+		apiVersion: v1, kind: ResourceQuota
+		spec:
+		  hard:
+		   requests.cpu: 4
+		   requests.memory: 4Gi
+		   limits.cpu: 10
+		   limits.memory: 10 Gi
+
+3.8 Editing Pods and deployments:
+	- Remember, you CANNOT edit specifications of an existing POD other than the below.
+		spec.containers[*].image
+		spec.initContainers[*].image
+		spec.activeDeadlineSeconds
+		spec.tolerations
+	- kubectl edit pod <pod name> and edit property and save file. K8s will give error and save file in tmp dir. 
+		you can delete the existing pod and create new one by running kubectl create -f /tmp/save-file.yaml
+	- 2nd way is to create yaml using existing pod, kubectl get pod pod-name -o yaml > my-new-pod.yaml 
+		Then edit the my-new-pod.yaml with new properties and save it. and then delete existing pod and create new using def file.
+	- When it comes to edit pod which is part of the deployment you can edit any property of the pod, because when we edit 
+		deployment, k8s will automatically delete existig pod and create new one.
+
+3.9 DaemonSets
+	- DaemonSets are like ReplicaSets, as in it helps you deploy multiple instances of pods. But it runs one copy of your pod
+		on each node in your cluster. Whenever a new node is added to the cluster, a replica of the pod is automatically added to that node.
+		And when a node is removed the pod is automatically removed.
+	- So what are some use cases of DaemonSets? Say you would like to deploy a monitoring agent or log collector on each of your nodes in the cluster,
+		so you can monitor your cluster better. A DaemonSet is perfect for that as it can deploy your monitoring agent
+		in the form of a pod in all the nodes in your cluster.
+	- Earlier, while discussing the Kubernetes architecture, we learned that one of the worker node components
+		that is required on every node in the cluster is a kube-proxy. That is one good use case of DaemonSets.
+		The kube-proxy component can be deployed as a DaemonSet in the cluster
+	- Another use case is for networking.Networking solutions like Vivenet requires an agent to be deployed on each node in the cluster
+	- Creating a DaemonSet is similar to the ReplicaSet creation process. It has nested pod specification under the template section
+		and selectors to link the DaemonSet to the pods. Here kind is DaemonSet. Ensure the labels in the selector matches the ones in the pod template.
+		kubectl get daemonsets, kubectl describe daemonset monitoring-agent
+	- Excercise to create a daemonset named elasticsearch on kube-system namespace. first create a deployment and save it to dameonset-def.yaml
+		file using kubectl create daemonset elasticsearch --image=registry.k8s.io/elasticsearch:1.20 -n=kube-system --dry-run=client -o yaml > 
+		daemonset-def.yaml
+		then edit the file with kind: DaemonSet and remove replicas and then kubectl create -f daemonset-def.yaml
+
+3.10 Static PODs
+	- The kubelet relies on the kube-apiserver for instructions on what Pods to load on its Node, which was based on a decision made by 
+		the kube-scheduler, which was stored in the ETCD data store. What if there was no kube-apiserver and kube-scheduler
+		and no controllers and no ETCD cluster? What if there was no master at all? What if there were no other Nodes?
+	- Well, the kubelet can manage a Node independently. The one thing that the kubelet knows to do is create Pods,
+		but we don't have an API server here to provide Pod details using definition files.
+	- You can configure the kubelet to read the Pod definition files from a directory on the server designated to store information about Pod
+	- Place the Pod definition files in this directory. The kubelet periodically checks this directory for files,reads these files, 
+		and creates Pods on the host.Not only does it create the Pod,it can ensure that the Pod stays alive.If the application crashes,
+		the kubelet attempts to restart it. If you make a change to any of the file within this directory, the kubelet recreates the Pod
+		for those changes to take effect. If you remove a file from this directory, the Pod is deleted automatically.
+	- So these Pods that are created by the kubelet on its own without the intervention from the API server
+		or rest of the Kubernetes cluster components are known as static Pods. you can only create Pods this way.
+		You cannot create replica sets or deployments or services by placing a definition file in the designated directory.
+		They're all concepts, part of the whole Kubernetes architecture that requires other cluster plane components
+	- Location of the directory is either passed in to the kubelet as an option while running the service. The option is named pod-manifest-path,
+		or Instead of specifying the option directly in the kubelet.service file, you could provide a path to another config file (kube-config.yaml)
+		using the config option and define the directory path as staticPodPath in that file
+	- Once pod are created we can not see them by using kubectl as there is no apiserver, we can see pods by docker ps command
+	- The kubelet can create both kinds of Pods, the static Pods and the ones from the API server at the same time.
+	- When the kubelet creates a static Pod, if it is a part of a cluster, it also creates a mirror object in the kube-apiserver.
+		What you see from the kube-apiserver is just a read-only mirror of the Pod. You can view details about the Pod,
+		but you cannot edit or delete it like the usual Pods.
+	- So then why would you want to use static Pods? Since static Pods are not dependent on the Kubernetes control plane, you can use static Pods
+		to deploy the control plane components itself as Pods on a Node. Well, start by installing kubelet on all the master Nodes,
+		then create Pod definition files that uses docker images of the various control plane components
+		such as the API server, controller, ETCD, et cetera. Place the definition files in the designated manifest folder,
+		and the kubelet takes care of deploying the control plane components themselves as Pods on the cluster.
+		This way, you don't have to download the binaries,
+		configure services, or worry about the services crashing. If any of these services were to crash, since it's a static Pod,
+		it'll automatically be restarted by the kubelet.
+	- That's how the kube admin tool sets up a Kubernetes cluster,which is why when you list the Pods
+		in the kube-system namespace you see the control plane components as Pods
+	- difference between static Pods and DaemonSets, DaemonSet is handled by a DaemonSet controller through the kube-apiserver.
+		Both static Pods and Pods created by DaemonSets are ignored by the kube-scheduler.
+
+3.11 Multiple Schedulers
+	- Say you have a specific application that requires its components to be placed on nodes after performing some additional checks
+		So you decide to have your own scheduling algorithm to place pods on nodes so that you can add your own custom conditions
+		and checks in it
+	- Kubernetes is highly extensible. You can write your own Kubernetes scheduler program, package it and deploy it as the default scheduler
+		or as an additional scheduler in the Kubernetes cluster
+	- That way all of the other applications can go through the default scheduler. However, some specific applications
+		that you may choose can use your own custom scheduler. So your Kubernetes cluster can have multiple schedulers at a time
+		When creating a pod or a deployment, you can instruct Kubernetes to have the pod scheduled by a specific scheduler.
+	- In order to create a new scheduler your can write definition file name my-scheduler-config.yaml like below:
+		apiVersion: kubescheduler.config.k8s.io/v1 
+		kind: KubeSchedulerConfiguration
+		profiles:
+			- schedulerName: my-scheduler
+	- To deploy an additional scheduler, you may use the same kube-scheduler binary and point the config to the custom configuration
+		file that we created above:
+		kube-scheduler.service
+		ExecStart-/usr/local/bin/kube-scheduler \\
+			--config=/etc/kubernetes/config/my-scheduler-config.yaml
+	- Above approach is not how you would deploy a custom scheduler 99% of the time today because with kubeadm deployment,
+		all the control plane components run as a pod or a deployment within the Kubernetes cluster.
+	- if you were to deploy the scheduler as a pod. So we create a pod definition file and specify the kubeconfig property,
+		which is the path to the scheduler conf file that has the authentication information to connect to the Kubernetes API server
+		We then pass in our custom kube-scheduler configuration file as a config option to the scheduler. See below my-custom-scheduler.yaml
+		apiVersion: v1
+		kind: Pod
+		metadata:
+			name: my-custom-scheduler
+			namespace: kube-system
+		spec:
+			containers:
+			- command:
+				- kube-scheduler
+				- --address=127.0.0.1
+				- --kubeconfig=/etc/kubernetes/scheduler.conf
+				- --config=/etc/kubernetes/config/my-scheduler-config.yaml
+			  image: k8s.gcr.io/kube-scheduler-amd64:v1.11.3
+			  name: kube-scheduler
+	- To deploy the above additional scheduler as a deployment,we need to go into the Kubernetes documentation pages
+		and for the one for configuring multiple schedulers. We somehow pass, not sure, either my-scheduler-config.yaml or
+		my-custom-scheduler.yaml and the our custom scheduler is deployed as pod in kube-system namespace. 
+		we can check by running kubectl get pods --namespace=kube-system
+	- To use custom scheduler in our pod we need put scheduler name in pod definition file. 
+		spec:
+			container:
+			- image: nginx
+			  name: nginx
+			scheduler: my-custom-scheduler
+	- To see the events run command kubectl get events -o wide
+
+3.12 Configuring Scheduler profiles
+	- the first thing that happens is that when these pods are created, the pods end up in a scheduling queue.
+	- You can set priority of a pod (high numeric value means high priority) by setting priorityClassName: high-priority under spec section
+	- You need to define priority by using kind: PriorityClass value: 10000 to be able to use in PODs
+	- Then, our pod enters the filter phase. This is where nodes that cannot run the pod are filtered out.
+	- The next phase is the scoring phase. So this is where nodes are scored with different weights. Based on the remaining CPUs after pods request.
+	- And finally, in the binding phase, this is where the pod is finally bound to a node with the highest score
+	- Now, all of these operations are achieved with certain plugins
+	- PrioritySort plugin that sorts the pods in an order based on the priority configured on the pods
+	- NodeResourcesFit plugin that identifies the notes that has sufficient resources required by the pods and filters out the nodes that doesn't.
+		It also associates a score to each node in scoring phase.
+	- finally, in the binding phase, you have the DefaultBinder plugin that provides the binding mechanism
+	- The highly extensible nature of Kubernetes makes it possible for us to customize what plugins go where and for us to write our 
+		own plugin and plug them in here
+	- In the previous section we saw one way to deploy multiple schedulers, by creating different config files and running separate scheduler
+		binaries. Now the problem here is that since these are separate processes, they may run into race conditions while making scheduling 
+		decisions. For example, one scheduler may schedule a workload on a node without knowing that there's another scheduler
+		scheduling a workload on that same node at the same time
+	- So, with the 1.18 release of Kubernetes, a feature to support multiple profiles in a single scheduler was introduced.
+	- apiVersion: kubescheduler.config.k8s.io/v1 
+		kind: KubeSchedulerConfiguration
+		profiles:
+			- schedulerName: my-scheduler-1
+			- schedulerName: my-scheduler-2
+	-So this creates a separate profile for each scheduler which acts as a separate scheduler itself, except that now multiple schedulers
+		are run in the same binary as opposed to creating separate binaries for each scheduler
+	- How do you configure them to work differently? Under each scheduler profile, we can configure (enable/disable)the plugins the way we want to.
+		apiVersion: kubescheduler.config.k8s.io/v1 
+		kind: KubeSchedulerConfiguration
+		profiles:
+			- schedulerName: my-scheduler-1
+			  plugins:
+				score:
+					disabled:
+						- name: TaintToleration
+					enabled:
+						- name: MyCustomPlugin1
+						- name: MyCustomPlugin2
+			- schedulerName: my-scheduler-2
+	
+
+4. Logging and Monitoring
+4.1 Monitoring Cluster Components
+	- This is about monitoring resource consumption on Kubernetes. 
+	- We would like to know node-level metrics, such as the number of nodes in the cluster, how many of them are healthy,
+		as well as performance metrics such as CPU, memory, network, and disc utilization
+	- We would also like to know pod-level metrics,such as the number of pods,and the performance metrics of each pod,
+		such as the CPU and memory consumption on them
+	- Kubernetes does not come with a full-featured built-in monitoring solution. However, there are a number
+		of open-source solutions available today uch as Metrics Server, Prometheus, the Elastic Stack,
+		and proprietary solutions like Datadog and Dynatrace
+	- Heapster was one of the original projects that enabled monitoring. However, Heapster is now deprecated,
+		and a slimmed-down version was formed, known as the Metrics Server
+	- You can have one Metrics Server per Kubernetes cluster.The Metrics Server retrieves metrics from each of the Kubernetes nodes and pods,
+		aggregates them, and stores them in memory (not on disk) And as a result, you cannot see historical performance data.
+		For that, you must rely on one of the advanced monitoring solutions
+	- Kubernetes runs an agent on each node known as the kubelet. The kubelet also contains a sub component
+		known as the cAdvisor or Container Advisor. cAdvisor is responsible for retrieving performance metrics from pods
+		and exposing them through the kubelet API to make the metrics available for the Metrics Server.
+	- If you're using minikube for your local cluster, run the command, minikube addons enable metrics-server.
+		For all other environments,deploy the Metrics Server by cloning the Metrics Server deployment files
+		from the GitHub repository, and then deploying the required components using the kubectl create command
+	- kubectl top node command  provides the CPU and memory consumption of each of the node.
+	- kubectl top pod  command to view performance metrics of pods in Kubernetes.
+
+4.2 Application logs
+	- Once the pod is running, we can view the logs using the kubectl logs command with the pod name. kubectl logs -f pod-name 
+		-f option for streaming the logs file
+	- Now these logs are specific to the container running inside the pod, Kubernetes pods can have multiple Docker containers in them.
+		If there are multiple containers within a pod, you must specify the name of the container explicitly in the command
+		otherwise it will fail. kubectl logs -f pod-name container-name
+
+
+5. Application lifecycle management
+5.1 Rolling updates and Rollbacks
+	- When you first create a deployment, it triggers a rollout. A new rollout creates a new deployment revision. In the future 
+		when the application is upgraded,a new rollout is triggered, and a new deployment revision is created.
+	- This helps us keep track of the changes made to our deployment and enables us to roll back to a previous version of deployment 
+		if necessary
+	- There are two types of deployment strategies, first one is to destroy all of these and then create newer versions
+		of application instances. The problem with this, is that during the period after the older versions are down and before any newer 
+		version is up, the application is down and inaccessible to users. This strategy is known as the recreate strategy, not default used by k8s.
+	- rolling update is the default deployment strategy. In this strategy k8s take down the older version and bring up a newer version one by one.
+		This way, the application never goes down
+	- When you execute kubectl create -f command (after updating deployment definition file), kubernetes creates a rollout.
+	- You could use the kubectl set image command to update the image of your application but that will not make changes to your definition file.
+	- rolling update strategies can also be seen when you view the deployments in detail. Run the kubectl describe deployment command
+		to see the detailed information regarding the deployments. You will notice when the recreate strategy was used,
+		the events indicate that the old replica set was scaled down to zero first, and then the new replica set scaled up to five.
+		However, when the rolling update strategy was used, the old replica set was scaled down one at a time,simultaneously scaling 
+		up the new replica set one at a time
+	- Let's look at how a deployment performs an upgrade under the hood. When a new deployment is created, say, to deploy five replicas,
+		it first creates a replica set automatically, which in turn creates the number of pods required to meet the number of replicas.
+		When you upgrade your application, as we saw in the previous slide, the Kubernetes deployment object creates a new replica set
+		under the hood and starts deploying the containers there, at the same time, taking down the pods in the old replica set
+	- Summary of commands: 
+		kubectl create -f deployment-definition.yaml (to create deployment and it creates replica sets automatically)
+		kubectl get deployments (to see the deployments)
+		kubectl apply -f deployment-definition.yaml (to update the application with new values, kubectl set image deployment/my-dep --image=nginx2)
+		kubctl rollout status deployment/my-deployment ( to check the status of the rollout for a given deployment)
+		kubctl rollout history deployment/my-deployment (to check history of rollouts for a give deployment
+		kubctl rollout undo deployment/my-deployment (to rollback to previous version of rollout)
+	
+5.2 Configuring applications
+	- Configuring applications comprises of understanding the following concepts
+		Configuring Command and Arguments on applications
+		Configuring Environment Variables
+		Configuring Secrets
+
+5.3 Commands And Aruguments in POD definition
+	- Let's first refresh our memory on commands on containers and Docker. We will then translate this into pods.
+	-  we will look at commands, arguments, and entry points in Docker
+	- docker run ubuntu (to run a container image with ubuntu operating system)
+	- docker ps (to see all running processes inside docker)
+	- docker ps -a (to all processed including stopped one)
+	- Unlike virtual machines, containers are not meant to host an operating system. Containers are meant to run a specific task
+		or process, such as to host an instance of a web server or application server or a database, or simply to carry out some computation 
+		or analysis. Once the task is complete, the container exits. A container only lives as long as the process inside it is alive
+	 	If the web service inside the container is stopped or crashes, the container exits
+	- So who defines what process is run within the container? If you look at the Docker file for popular Docker images, like NGINX, you will 
+		see an instruction called CMD, which stands for command, that defines the program. CMD["ngnix"]
+	- So how do you specify a different command to start the container? One option is to append a command to the Docker run command
+		eg. docker run ubuntu sleep 5
+	- If you want a command to run permanently then you create your own image from the base Ubuntu image
+		eg. FROM ubuntu
+			CMD sleep 5 (or CMD ["sleep","5"])
+		docker build -t ubuntu-sleeper
+		docker run ubuntu-sleeper
+	- Now if you want to pass seconds as argument, then you use ENTRYPOINT. The entry point instruction is like the command instruction,
+		the command line parameters will get appended. docker run ubuntu-sleeper 10
+		FROM ubuntu
+		ENTRYPOINT ["sleep"]
+	- Now if you want to have default value of seconds then you use both ENTRYPOINT and CMD. docker run ubuntu-sleeper 
+		FROM ubuntu
+		ENTRYPOINT ["sleep"]
+		CMD ["5"]
+	- You can override entrypoint by using command docker run --entrypoint sleep-2.0 ubuntu-sleeper 20
+	
+5.4 Commands and Arguments in POD definition file
+	- For container created in previous section we can create below defintion file to pass ENTRYPOINT and CMD
+		apiVersion: v1
+		kind: POD
+		metadata:
+		spec:
+			containers:
+				- name: ubuntu-sleeper
+				  image: ubuntu-sleeper
+				  command: ["sleep2.0"] (Remeber command field overrides the ENTRYPOINT)
+				  args: ["10"] (args field overrides the CMD)
+
+5.5 Configuring Environment variables
+	- To set an environment variable, use the ENV property. ENV is array, so every item under the ENV property is name and value
+		apiVersion: v1
+		kind: POD
+		metadata:
+		spec:
+			containers:
+				- name: ubuntu-sleeper
+				  image: ubuntu-sleeper
+				  env:
+					- name: APP_COLOR
+					  value: blue
+
+5.6 Configuring ConfigMaps
+	- We can take variable information out of the pod definition file and manage it centrally using configuration maps
+		Config maps are used to pass configuration data in the form of key value pairs in Kubernetes
+		When a pod is created, inject the config map into the pod so the key value pairs are available as environment variables
+	- The imperative way without creating definition file: kubectl create configmap appp-config --from-literal=APP_COLOR=blue \
+		--from-literal=APP_MOD=prod
+		However, this will get complicated when you have too many configuration items
+	- declarative approach: create definition file mysql-config.yaml and run kubectl create -f mysql-config.yaml
+		apiVersion: v1
+		kind: ConfigMap
+		metadata:
+			name: app-config
+		data:
+			APP_COLOR: blue
+			APP_MOD: prod
+	- kubectl get configmaps, kubectl describe configmap sql-config
+	- Second step to pass configmap in pod definition:
+		spec:
+			containers:
+				- name: nginx
+				  image: nginx
+				  envFrom:
+					- configMapRef:
+						name: app-config
+	- other ways to pass configmap data to pods
+		- single env: env:
+					  - name: APP_COLOR
+					    valueFrom:
+							configMapRefKey:
+								name: app-config
+								key: APP_COLOR
+		- volume:	volumes:
+						- name: app-config-volume
+						  configMap:
+							- name: app-config
+
+5.7 Configuring secrets in application:
+	- The ConfigMap stores configuration data in plain text format  not the right place to store a password.
+	- Secrets are used to store sensitive information like passwords or keys. They're similar to ConfigMaps
+		except that they're stored in an encoded format.
+	- imparative ways to create secrets: kubectl create secret generic app-secret --from-literal=DB_HOS=mysql
+	- declarative way: apiVersion: v1, kind: Secret, metadata:, data: DB_HOST: mysql (in enocdded form)
+	- to encode in linux: echo -n "mysql" | base64
+	- to decode in linux: echo -n "dfhkhdk" | base64 --decode
+	- kubectl get secrets
+	- kubectl describe secret app-secret -o yaml
+	- To inject secrets in POD: 
+		envFrom:
+			- secretRef:
+				name: app-secret
+	- single value:
+		env:
+		  - name: DB_PASS
+		    valueFrom:
+				secretKeyRef:
+					name: app-secret
+					key: DB_PASS
+	- volumes: Each attribute in the secret is created as a file with the value of the secret as its content
+		volumes:
+		  - name: app-secret-volume
+			secret:
+			  secretName: app-secret	
+		
+	- note that secrets are not encrypted. They're only encoded, meaning anyone can decode them if they can see secret.
+	- So remember not to check in your secret definition files along with your code
+	- Another note is that the secrets are not encrypted in etcd. So none of the data in etcd is encrypted by default.
+		So consider enabling encryption at rest. 
+	- consider third party secret provider, such as AWS provider or Azure provider or GCP provider or the vault provider.
+		This way, the secrets are stored not in etcd but in external secret provider,and that those providers takes care of most of the security
+	- The concept of safety of the Secrets is a bit confusing in Kubernetes. The kubernetes documentation page and a lot of blogs out there 
+		refer to secrets as a "safer option" to store sensitive data. They are safer than storing in plain text as they reduce the risk of 
+		accidentally exposing passwords and other sensitive data. In my opinion it's not the secret itself that is safe, it is the practices 
+		around it
+	- Also the way kubernetes handles secrets. Such as:
+		A secret is only sent to a node if a pod on that node requires it.
+		Kubelet stores the secret into a tmpfs so that the secret is not written to disk storage.
+		Once the Pod that depends on the secret is deleted, kubelet will delete its local copy of the secret data as well
+
+5.9 Demo Encrypting Secret Data at rest
+
+5.10 Multicontainer PODs
+	- The idea of decoupling a large monolithic application into sub components known as microservices enables us to develop and deploy a 
+	set of independent, small, and reusable code
+	- However, at times, you may need two services to work together, such as a web server and a logging service.
+		You need one agent instance per web server instance paired together. You don't want to merge
+		and load the code of the tool services, as each of them target different functionalities and you would still like them to be developed
+		and deployed separately.
+	- You need one agent per web server instance paired together that can scale up and down together
+		and that is why you have multi container pods that share the same life cycle, which means they are created together
+		and destroyed together. They share the same network space, which means they can refer to each other as local host,
+		and they have access to the same storage volumes.
+	- To create a multi-container pod, add the new container information to the pod definition file. As container section under spec 
+		is an array.
+	- There are 3 common patterns, when it comes to designing multi-container PODs. Sidecar, The Adapter, The Ambassador pattern
+
+5.11 Init Containers:
+	- In a multi-container pod, each container is expected to run a process that stays alive as long as the POD's lifecycle. 
+		For example in the multi-container pod that we talked about earlier that has a web application and logging agent, both 
+		the containers are expected to stay alive at all times. The process running in the log agent container is expected to 
+		stay alive as long as the web application is running. If any of them fails, the POD restarts.
+	- But at times you may want to run a process that runs to completion in a container. For example a process that pulls a code or 
+		binary from a repository that will be used by the main web application. That is a task that will be run only  one time when the 
+		pod is first created. Or a process that waits  for an external service or database to be up before the actual application starts. 
+		That's where initContainers comes in.
+	- An initContainer is configured in a pod like all other containers, except that it is specified inside a initContainers section
+		initContainers:
+		- name: init-myservice
+		  image: busybox
+		  command: ['sh', '-c', 'git clone <some-repository-that-will-be-used-by-application> ; done;']
+	- When a POD is first created the initContainer is run, and the process in the initContainer must run to a completion before the
+		real container hosting the application starts
+	- You can configure multiple such initContainers as well, like how we did for multi-containers pod. In that case each init container
+		is run one at a time in sequential order. If any of the initContainers fail to complete, Kubernetes restarts the Pod repeatedly until 
+		the Init Container succeeds
+	- Self Healing App:Kubernetes supports self-healing applications through ReplicaSets and Replication Controllers. The replication controller 
+		helps in ensuring that a POD is re-created automatically when the application within the POD crashes. It helps in ensuring enough 
+		replicas of the application are running at all times
+		
+
+6. Cluster Maintenance
+6.1 OS Upgrade
+	- we will discuss about scenarios where you might have to take down nodes as part of your cluster, say for maintenance purposes,
+		like upgrading a software or applying patches
+	- when one of these nodes go down, Of course, the pods on them are not accessible. If you have only 1 replica set then your users
+		might be impacted as well.
+	- If the node came back online immediately, then the kubelet process starts and the pods come back online.
+		if the node was down for more than five minutes, then the pods are terminated from that node. Well, Kubernetes considers them as dead.
+		If the pods were part of your replica set, then they are recreated on other nodes
+	- The time it waits for a pod to come back online is known as the pod-eviction-timeout and is set on the controller manager
+		with a default value of five minutes. When the node comes back online after the pod-eviction-timeout,
+		it comes up blank without any pod scheduled on it
+	- You can purposefully drain the node of all the workloads so that the workloads are moved to other nodes in the cluster.
+		Well, technically, they're not moved. When you drain a node, the pods are gracefully terminated from the node that they're on 
+		and recreated on another node. command for drain is kubectl drain node-1
+	- The node is also cordoned or marked as unschedulable,meaning no pods can be scheduled on this node until you uncordon it
+		kubectl uncordon node-1 (--ignore-daemonsets needed during lab excerise)
+	- you can manually mark a node cordoned using kubectl cordon node-1. Cordon simply marks a node unschedulable.Unlike drain, it does 
+		not terminate or move the pods on an existing node. It simply makes sure that new pods are not scheduled on that node
+		
+6.2 Kubernetes Versions
+	- The Kubernetes release versions consists of three parts. The first is the major version, followed by the minor version, and then the 
+		patch version.
+	- Apart from these, you will also see alpha and beta releases. All the bug fixes and improvements
+		first go into an alpha release, tagged alpha. In this release, the features are disabled by default, and may be buggy.
+		Then from there, they make their way to beta release, where the code is well tested, the new features are enabled by default.
+		And finally, they make their way to the main stable release
+	- When we download and install kubernetes, all the Kubernetes components,all of them of the same version.
+		Remember that there are other components within the control plane that do not have the same version numbers.
+		The etcd cluster and CoreDNS servers have their own versions, as they are separate project
+
+6.3 Cluster Upgrade process:
+	- In this lecture We will keep dependency on external components, like ETCD and CoreDNS, aside for now and focus on the core 
+		control plane components, which are kube-apiserver, controller-manager, kube-scheduler,kubelet, kubeproxy and kubectl 
+		Is it mandatory for all of these to have the same version. No. The components can be at different release versions
+	- Since the kube-apiserver is the primary component in the control plane, and that is the component that all other components talk to,
+		none of the other components should ever be at a version higher than the kube-apiserver.
+	- The controller-manager and scheduler can be at one version lower. kubelet and kube-proxy components can be at two versions lower
+	- This is not the case with kubectl utility. It could 1 version higher, same or 1 version lower than api-server
+	- at any time, Kubernetes supports only up to the recent three minor versions, if current is 1.29 then 1.28,1.27 are supported
+	- The recommended approach is to upgrade your kubernetes clusster is one minor version at a time
+	- The upgrade process depends on how your cluster is set up. For example, if your cluster is a managed Kubernetes cluster
+		deployed on cloud service providers, like Google, for instance, Google Kubernetes Engine lets you upgrade your cluster
+		easily with just a few clicks. If you deployed your cluster using tools like kubeadm, then the tool can help you plan and 
+		upgrade the cluster. If you deployed your cluster from scratch,then you manually upgrade the different components of the cluster yourself
+	- Here we will explore kubeadm cluster upgrade process. Upgrading a cluster involves two major steps. First, you upgrade your master nodes
+		and then upgrade the worker nodes. While the master is being upgraded, the control plane components, such as the API server,
+		scheduler, and controller-managers, go down briefly. The master going down does not mean your worker nodes
+		and applications on the cluster are impacted. Since the master is down, all management functions are down.You cannot access the 
+		cluster using kubectl or other Kubernetes API
+	- There are 3 different strategies available to upgrade the worker nodes. One is to upgrade all of them at once. But then your pods are down
+		this strategy that requires downtime. The second strategy is to upgrade one node at a time, where the workloads move to 
+		other nodes. A third strategy would be to add new nodes to the cluster, nodes with newer software version.This is especially convenient
+		if you're on a cloud environment where you can easily provision new nodes and decommission old ones
+	- Lets see how its done using kubeadm. kubeadm has an upgrade command (kubeadm upgrade plan) that helps in upgrading clusters.
+		it will give you a lot of good information, the current cluster version, the kubeadm tool version,
+		the latest stable version of Kubernetes. Then it lists all the control plane components and their versions
+		and what version these can be upgraded to. It also tells you that after we upgrade the control plane components,
+		you must manually upgrade the kubelet versions on each node. Also, note that you must upgrade the kubeadm tool itself
+		before you can upgrade the cluster. The kubeadm tool also follows the same software version as Kubernetes
+	- apt-get upgrade -y kubeadm=1.12.0-00 (to upgrade kubeadm to next version)
+	- kubeadm upgrade apply v1.12.0 (to upgrade controlplane components)
+	- when you run kubectl get nodes, then version displayed is the versions of kubelets on each of these nodes registered with the API server
+		and not the version of the API server itself.So the next step is to upgrade the kubelets
+	- apt-get upgrade -y kubelet=1.12.0-00 (to upgrade kubelet manually)
+	- systemctl restart kubelet (to restart the kubelet service, now you can run get nodes command again to see version upgraded)
+	- To upgrade worker nodes we need to drain the node, upgrade kubectl, restart kubectl and finally uncordon node. Repeast these steps
+		on all workder nodes
+	- Lab: Controlpland node version upgrade from 1.28.0 to 1.29.0
+		- drain node controlplane --ignore-daemonsets
+		- vim /etc/apt/sources.list.d/kubernetes.list
+		- deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /
+		- root@controlplane:~# apt update
+		  root@controlplane:~# apt-cache madison kubeadm
+		- root@controlplane:~# apt-get install kubeadm=1.29.0-1.1
+		- root@controlplane:~# kubeadm upgrade plan v1.29.0
+		  root@controlplane:~# kubeadm upgrade apply v1.29.0
+		- root@controlplane:~# apt-get install kubelet=1.29.0-1.1
+		  root@controlplane:~# systemctl daemon-reload
+		  root@controlplane:~# systemctl restart kubelet
+		  root@controlplane:~# kubectl uncordon controlplane
+	- Lab: Workder node version upgrade from 1.28.0 to 1.29.0
+		- ssh node01
+		- drain node node01 --ignore-daemonsets
+		- vim /etc/apt/sources.list.d/kubernetes.list
+		- deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /
+		- root@node01:~# apt update
+		  root@node01:~# apt-cache madison kubeadm
+		- root@node01:~# apt-get install kubeadm=1.29.0-1.1
+		- root@node01:~# kubeadm upgrade node
+		- root@node01:~# apt-get install kubelet=1.29.0-1.1
+		  root@node01:~# systemctl daemon-reload
+		  root@node01:~# systemctl restart kubelet
+		- exit, then kubectl uncordon node01
+		
+6.4 Backup and Restores
+	- Let's start by looking at what you should consider backing up in Kubernetes cluster.
+		Resource configuration (deployments,pods,services etc)
+		etcd cluster
+		persistent storage (if you have any in your cluster)
+	- While the declarative approach is the preferred approach, it is not necessary that all of your team members stick to those standards.
+		What if someone created an object the imperative way without documenting that information anywhere?
+		So a better approach to backing up resource configuration is to query the Kube API server
+		kubectl get all --all-namespace -o yaml > all-deploy-service.yaml is an example of backing up of every resource
+	- Let us now move on to etcd. The etcd cluster stores information about the state of our cluster.
+		So information about the cluster itself, the nodes and every other resources created within the cluster, are stored here
+		So instead of backing up resource as before, you may choose to backup the etcd server itself. etcd cluster is hosted on the master nodes
+	- Etcd also comes with a builtin snapshot solution. You can take a snapshot of the etcd database by using the etcd control utility's 
+		snapshot save command.  ETCDCTL_API=3 etcdctl \ snapshot save snapshot.db
+	- To view the status of snapshots: ETCDCTL_API=3 etcdctl \ snapshot status snapshot.db
+	- To restore the cluster from this backup at a later point in time, first, stop the Kube API server service,
+		as the restore process will require you to restart the etcd cluster, and the Kube API server depends on it
+	- When etcd restores from a backup, in initializes a new cluster configuration and configures the members of etcd
+		as new members to a new cluster. ETCDCTL_API=3 etcdctl \ snapshot restore snapshot.db --data-dir /var/lib/etcd-from-backup
+	- With all the etcd commands, remember to specify the certificate files for authentication
+	- If you're using a managed Kubernetes environment, then, at times, you may not even access to the etcd cluster.
+		In that case, backup by querying the Kube API server is probably the better way
+	- etcdctl is a command line client for etcd.
+	- To create the backup:
+		ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 \
+		--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+		--cert=/etc/kubernetes/pki/etcd/server.crt \
+		--key=/etc/kubernetes/pki/etcd/server.key \
+		snapshot save /opt/snapshot-pre-boot.db
+	- To restore using backup:
+		ETCDCTL_API=3 etcdctl --data-dir=/var/lib/backup-from-etcd --endpoints=https://[127.0.0.1]:2379 \
+		--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+		--cert=/etc/kubernetes/pki/etcd/server.crt \
+		--key=/etc/kubernetes/pki/etcd/server.key \
+		snapshot restore /opt/snapshot-pre-boot.db
+		vi /etc/kubernetes/manifest/etcd/etcd.yaml data.dir=/var/lib/etcd-from-backup.yaml
+	- kubectl config view, kubectl config use-context cluster1 
+	
+
+7. Security:
+7.1 Kubernetes security primitive
+	- Our focus in this lecture is more on Kubernetes related security. Who can access the cluster(Authentication) and what can they do 
+		(Authorization). There are different ways that you can authenticate to the API server, starting with user IDs and passwords stored
+		in static files or tokens, certificates, or even integration with external authentication providers like LDAP.
+	- All communication with the cluster between the various components such as the ETCD cluster, the kube-controller-manager, scheduler, API server,
+		as well as those running on the worker nodes such as the Kubelet and the kube-proxy is secured using TLS encryption
+	- What about communication between applications within the cluster? By default, all Pods can access all other Pods
+		within the cluster.Now, you can restrict access between them using network policies.
+	
+7.2 Authentication	
+	- In this lecture, our focus is on securing access to the Kubernetes cluster with authentication mechanisms.
+	- There are two types of users, humans such as the administrators and developers, and robots such as other processes
+		or services or applications that require access to the cluster. Kubernetes does not manage user accounts natively.
+		It relies on an external source like a file with user details or certificates or a third party identity service,
+		like LDAP to manage these users
+	- All user access is managed by the API server, whether you're accessing the cluster through Kubecontrol tool or the API directly.
+		All of these requests go through the Kube API server. The Kube API server authenticates the request before processing it.
+	- First way of auth is, You can create a list of users and their passwords in a CSV file(three columns, password, username, and user ID) 
+		and use that as the source for user information. kubeapi server service should be updated with --basic-auth-file=user-details.csv
+		and You must then restart the Kube API server for these options to take effect.
+	- If you set up your cluster using the Kubeadm tool, then you must modify the Kube API server POD definition file.
+		The Kubeadm tool will automatically restart the Kube API server once you update this file.
+	- Example use of api server with username password: curl -v -k https://master-node:6443/api/v1/pods -u "user1:pass123"
+	- Second way of auth is, static token file. with token,username,userid,group (optional) in user-token-details.csv
+		curl -v -k https://master-node:6443/api/v1/pods --header "Authorization: Bearer Kpjdffdkhkhkere"
+	- Remember that this authentication mechanism that stores usernames, passwords, and tokens in clear text in a static file, is not 
+		a recommended approach as it is insecure.
+
+7.3 SSL TLS Certificates Basics
+	- A certificate is used to guarantee trust between two parties during a transaction. For example, when a user tries to access a web server,
+		TLS certificates ensure that the communication between the user and the server is encrypted and the server is who it says it is.
+	- In order to send credentials safely over network, credentials must be encrypted
+		The data is encrypted using a key,which is basically a set of random numbers and alphabets. The data is then sent to the server
+	- Symmetric encryption: in symmetric encryption both data/credentials and the key are sent over network to server. there is a risk of a
+		hacker gaining access to the key and decrypting the data
+	- Asymmetric encryption: Instead of using a single key to encrypt and decrypt data, asymmetric encryption uses a pair of keys,a private 
+		key and a public key. Public key (or public lock) is used to lock some access and private key is used to decrypt/unlock the access.
+	- For securing ssh access to servers, we can generate key pair using ssh-keygen command, id_rsa is private key  id_rsa.pub is public key
+		You then secure your server by adding an entry with your public key into the server's SSH authorized_keys file 
+		(cat ~/.ssh/authorized_keys) and you login to server by providing private key in ssh command. ssh -i id_rsa ubuntu@ip_address_server
+	- What if other users need access to your servers, copy their public keys/locks to all the servers, and now other users can access the servers
+		using their private keys
+	- What if we could somehow get the symmetric key to the server safely( without sending both plain key and credentials over network).
+		To securely transfer the symmetric key from the client to the server, we use asymmetric encryption.
+		So we generate a public and private key pair on the server using openssl, openssl genrsa -out my-bank.key 1024 (private key)
+		openssl rsa -in my-bank.key -pubout > mybank.pem (public key)
+		When the browser first accesses the web server using HTTPS, it gets the public key from the server. The browser then encrypts the 
+		symmetric key using this public key. The server uses the private key to decrypt the message and retrieve the symmetry key from it.
+		The symmetric key is now safely available only to the user and the server. 
+	- Now how does user/browser make sure that public key sent by the server is legitimate and not sent by a hacker. 
+		When the server sends the public key,it does not send the key alone, it sends a certificate that has the key in it.
+		It has information about who the certificate is issued to, the public key of that server,the location of that server, etc.
+	- But anyone can generate a certificate like this. Most impartant bit about certificate is Who signed and issued the certificate.
+		Certificate authorities or CAs are well known organizations that can sign and validate your certificates for you.
+		Some of the popular ones are Symantec, DigiCert, Comodo, GlobalSign etc. 
+		you generate a certificate signing a request or CSR using the private key you generated earlier and the domain name of your website.
+		openssl req -new -key my-bank.key -out my-bank.csr -sub "/C=US/ST=CA/O=MyOrg.Inc/CN=mydomain.com"
+		The certificate authorities verify your details and once it checks out, they sign the certificate and send it back to you.
+		You now have a certificate signed by a CA that the browsers trust. Hacker will fail at validation stage by CA if he requests CSR.
+	- But how do the browsers know that the CA itself is legitimate?, The CAs themselves have a set of public and private key pairs.
+		The CAs use their private keys to sign the certificates. The public keys of all the CAs are built in to the browsers.
+		The browser uses the public key of the CA to validate that the certificate was actually signed by the CA themselves
+	- These are public CAs that help us ensure the public websites we use like email,banks. To validate sites hosted privately, 
+		say payroll service within your organization, you can host your own private CAs. Most of these public CA companies offer 
+		CA server that you can deploy internally within your company. You can then have the public key of your internal CAs server installed
+		on all your employees browsers and establish secure connectivity within your organization.
+	- Till now we established way to identify the server's identity but can server check identity of client?
+		For this, as part of the initial trust building exercise, the server can request a certificate from the client.
+		And so the client must generate a pair of keys and a signed certificate from a valid CA.
+		The client then sends the certificate to the server for it to verify that the client is who they say they are
+		TLS client certificates are not generally implemented on web servers (eg user using browser to access websites)
+	- This whole infrastructure, including the CA, the servers, the people, and the process of generating, distributing and maintaining
+		digital certificates is known as public key infrastructure or PKI
+	- You can encrypt the data using both private and public keys but can not both encrypt and decrypt the data using same key. 
+		Remember to use public key for encryption and private key for decrypting. If you use private key for encryption then anyone who has
+		your public key can decrypt data.
+	
+7.4 TLS in Kubernetes
+	- Naming convention about keys. Certificates with public keys are named CRT or PED extension eg server.crt or server.ped. 
+		Private keys are with extension .key or with -key in filename like server.key or server-key.pem
+	- How these concepts relate to a Kubernetes cluster.The Kubernetes cluster consists of a set of master and worker nodes.
+		Of course, all communication between these nodes need to be secure and must be encrypted.
+		For example, an administrator interacting with the Kubernetes cluster through the kubectl utility
+		or while accessing the Kubernetes API directly must establish secure TLS connection.
+	- Kube-apiserver exposes an HTTPS service that other components, as well as external users, uses to manage kubernetes cluster
+		needs to have server certificates (apiserver.cert and apiserver.key) to secure all communication with its clients
+	- Another server in the cluster is the etcd server. The etcd server stores all information about the cluster.
+		So it requires a pair of certificate and key for itself (etcdserver.cert and etcdserver.key)
+	- The other server component in the cluster is on the worker nodes.They are the kubelet services.
+		They also expose an HTTPS API endpoint that the kube-apiserver talks to, to interact with the worker nodes.
+	- Let's now look at the client components: Admin user who uses kubectl rest api to access kube-apiserver. 
+		The admin user requires a certificate and key pair (admin.cert admin.key) to authenticate to the kube-API server.
+	- The scheduler is a client that accesses the kube-apiserver to look for pods that require scheduling. 
+	- The Kube Controller Manager and kube-proxy are also client to the kube-apiserver and required TLS authentication
+	- Servers also communicate among themselves, eg kube-apiserver talks to etcd server so its a client for etcdserver and needs
+		tls authentication
+	- The kube-apiserver also talks to the kubelet server on each of the individual nodes.
+	- Remember, Kubernetes requires you to have at least one certificate authority for your cluster. CAs have its own pair of 
+		certificate and key. lets call it ca.cert and ca.key
+
+7.5 TLS in Kubernetes - Certificate creation
+	- To generate certificates, there are different tools available such as Easy-RSA, OpenSSL, or CFSSL, etc, or many others.
+		In this lecture we will use OpenSSL tool to generate the certificates
+	- We will start with the CA certificates. First we create a private key. openssl genrsa -out ca.key 2048 
+	- Then  generate a certificate signing request (CSR). openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr
+	- Since this is for the CA itself it is self-signed by the CA using its own private key. 
+		So we sign the certificate using the OpenSSL. openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt
+	- Going forward for all other certificates we will use this CA key pair (ca.crt ca.key) to sign them
+	- Now lets start generating the client certificates. Start by admin client.
+		Generate private key. openssl genrsa -out admin.key 2048
+		Certificate signing request: openssl req -new -key admin.key -subj "/CN=kube-admin" -out admin.csr (kube-admin is just name)
+		sign certificate: openssl x509 -req -in admin.csr -CA ca.crt -CAkey ca.key -out admin.crt
+		The certificate is like the validated User ID and the key is like the password.It's just that it's much more secure
+	- Next lest generate client certificate for kube-scheduler.kube-scheduler is a system component,
+		part of the Kubernetes control pane, so its name must be prefixed with the keyword system. The same with kube-controller-manager.
+	- An example use of admin certificate is to use it to call kube-apiserver instead of using username and password eg below	
+		curl https://kube-apiserver:6443/api/v1/pods --key=admin.key --cert=admin.cert --cacert=ca.cert
+		The other way is to move all of these parameters into a configuration file called kubeconfig.
+		Within that, specify the API server endpoint details, the certificates to use, et cetera.
+	- Let's look at the server-side certificates now. Firs is etcd server with name etcd-server and keys etcdserver.crt and etcdserver.key
+		These certificates need to configurd in etcd.yaml while starting etcd server. cat etcd.yaml
+	- Kube-apiserver: API server is the most popular of all components within the cluster. Everyone talks to the Kube API server.
+		And so it goes by many names and aliases within the cluster like kubernetes, kubernetes.default, kubernetes.default.svc,
+		kubernetes.default.svc.cluster.local or the ip address of the pod where api server is running. 
+		But how do you specify all the alternate names? For that, you must create an OpenSSL config file and specify the alternate names
+		in the Alt Name section of the file. Pass this config file as an option while generating the certificate signing request.
+		Once you have apiserver.cert and apiserver.key and its client certificates for etcd and kubelet servers, then you need
+		to specify these certificates in kube api service configuration file. 
+	- Next comes the kubelets server. The kubelets server is an ACTPS API server that runs on each node,
+		responsible for managing the node.That's who the API server talks to, to monitor the node as well as send information regarding what pods
+		to schedule on this node. As such, you need a key certificate pair for each node in the cluster. Now, what do you name these certificates?
+		Are they all going to be named kubelets? No. They will be named after their nodes. Node zero one, node zero two, and node zero three.
+		Once the certificates are created, use them in the kubelet config file.
+	- We also need client certificates for kubelets that will be used by the kubelet to communicate with the Kube API server.
+		These are used by the kubelet to authenticate into the Kube API server. They need to be generated as well.
+		The API server needs to know which node is authenticating and give it the right set of permissions so it requires the nodes to have #
+		the right names in the right formats. Since the nodes are system components like the kube-scheduler
+		and the controller-manager we talked about earlier, the format starts with the system keyword,followed by node, and then the node name
+
+7.6 View Certificate details:
+	- So you join a new team to help them manage their Kubernetes environment.
+		You're a new administrator to this team. You've been told that there are multiple issues related to certificates in the environment.
+		So you're asked to perform a health check of all the certificates in the entire cluster
+	- First of all, it's important to know how the cluster was set up.There are different solutions available
+		for deploying a Kubernetes cluster, and they use different methods to generate and manage certificates.
+		If you were to deploy a Kubernetes cluster from scratch you generate all the certificates by yourself,
+		as we did in the previous lecture. Or else, if you were to rely on an automated provisioning tool like Cube ADM,
+		it takes care of automatically generating and configuring the cluster for you. While you deploy all the components
+		as native services on the notes in the hard way, the Cube ADM tool deploys these as pods.So it's important to know where to look at,
+		to view the right information.
+	-  For the Cube API server definition file under /etsy/kubernetes/manifests folder. The command used to start the API server has information
+		about all the certificates it uses. For example, to view API server certificate file.Run the open SSL X509 command and provide the certificate
+		file as input to decode the certificate and view details. 
+		openssl x509 -in /etc/kuber/pki/apiserver.crt -text -noout
+	- If you set up the cluster from scratch by yourself and the services are configured as "native services" in the OS, you wanna start looking 
+		at the service logs using the operating systems logging functionality. 
+		command: journalctl -u etcd.service -l
+		In case you set up the cluster with Cube ADM
+		then the various components are deployed as pods. So you can look at the logs,using the cube control logs command followed
+		by the pod name. kubectl logs etcd-cluster
+		Sometimes if the core components, such as, the Kubernetes API server or the NCD server are down,
+		the cube control commands won't function. In that case, you have to go one level down to Docker to fetch the logs.
+		List all the containers using the Docker PS-A command (docker ps -a) and then view the logs using the Docker logs command
+		followed by the container ID. docker logs 87fc
+
+7.7 Certificate API
+	- What is the CA server and where is it located in the Kubernetes setup?
+		The CA is really just a pair of key and certificate files we have generated. Whoever gains access to these pair of files
+		can sign any certificate for the Kubernetes environment.They can create as many users as they want with whatever privileges they want.
+		So these files need to be protected and stored in a safe environment. Say we place them on a server that is fully secure.
+		Now that server becomes your CA server.
+		The certificate key file is safely stored in that server and only on that server. Every time you want to sign a certificate,
+		you can only do it by logging into that server. As of now, we have the certificates placed on the Kubernetes master node itself.
+		So the master node is also our CA server.
+	- The Kubeadm tool does the same thing. It creates a CA pair of files and stores that on the master node itself.
+		So far, we have been signing requests manually, but as and when the users increase and your team grows,
+		you need a better automated way to manage the certificate signing requests, as well as to rotate certificates when they expire
+	- Kubernetes has a built-in certificates API that can do this for you. With the certificates API,you now send a certificate signing request
+		directly to Kubernetes through an API call
+	- When the administrator receives a certificate signing request. instead of logging onto the master node
+		and signing the certificate by himself, he creates a Kubernetes API object called CertificateSigningRequest
+	- Lets see how its done, A user first creates a key,then generates a certificate signing request using the key with her name on it,
+		then sends the request to the administrator. openssl genrsa -out jane.key 2048
+		openssl req -new -key jane.key
+	- The administrator takes the key and creates a CertificateSigningRequest object. The CertificateSigningRequest object
+		is created like any other Kubernetes object, under spec and request field is where you specify
+		the certificate signing request sent by the user in base64 encoded form (cat jane.csr | base64)
+	- Once the object is created, all certificate signing requests can be seen by administrators by running the kubectl get csr
+		and approve by kubectl certificate approve jane
+		kubectl get csr jane -o yaml (output is base64 encoded certificate)
+	- Which of the kubernetes controlplane components is actually responsible for all the certificate-related operations?
+		All the certificate-related operations are carried out by the controller manager.
+	- kubectl deny csr agent-smith
+	- kubectl delete csr agent-smith
+	
+7.8 Kube Config
+	-  CURL request to the address of the kube-apiserver while passing in the  files, along with the CA certificate as options
+		curl https://my-kube-playground:6443/api/v1/pods --key admin.key --cert admin.crt --cacert ca.crt
+		This is a valid API server to authenticate the user while making api-server call. You can specify the same information
+		using while using the kubectl command as well but Obviously, typing those in every time is a tedious task
+	- So you can move this information to a configuration file called as kubeconfig. And then specify this file
+		as the kubeconfig option in your command. kubectl get pods --kubeconfig config
+		By default, the kubectl tool looks for a file named config under a directory .kube under the user's home directory ($HOME/.kube/config)
+	- The config file has three sections: clusters, users, and contexts
+		Clusters are the various Kubernetes clusters that you need access to. Say you have multiple clusters for development environment
+		or testing environment or prod.
+		Users are the user accounts with which you have access to these clusters. For example, the admin user, a dev user,
+		a prod user, et cetera. These users may have different privileges on different clusters.
+		Finally, contexts marry these together. Contexts define which user account will be used to access which cluster.
+		For example, you could create a context named admin@production that will use the admin account to access a production cluster.
+	- Remember, you're not creating any new users or configuring any kind of user access or authorization in the cluster with this process.
+		You're using existing users with their existing privileges and defining what user you're going to use to access what cluster.
+		That way you don't have to specify the user certificates and server address in each and every kubectl command you run.
+	- apiVersion: v1
+	  kind: Config
+	  currentContext: my-kube-admin@my-kube-playground
+	  clusters:
+	  - name: my-kube-playground
+	    cluster:
+	      certificateAuthority: /etc/kuber/pki/ca.crt (or certificateAuthorityData with encoded certificate value)
+		  server: https://my-kube-playground:6443
+	  
+	  contexts:
+	  - name: my-kube-admin@my-kube-playground
+		context:
+		  cluster: my-kube-playground
+		  user: my-kube-admin
+		  namespace: finance
+	  
+	  users:
+	  - name: my-kube-admin
+	    user:
+		  client-certificate: admin.crt
+		  client-key: admin.key
+	- Follow the same procedure to add all the clusters, users and contexts as these fields are array. 
+		For kube config file, remember, you don't have to create any object, like you do for other kube objects.
+		The file is left as is and is read by the kubectl command. how does kubectl know which context to choose from.
+		You can specify the default context used by adding a field current context to the kubeconfig file
+	- There are command line options available within kubectl to view and modify the kubeconfig files.
+		kubectl config view (to view config,at default location, file being used), kubectl config view --kubeconfig=my-custom-config
+	- So how do you update your current context? kubectl config use-context prod-user@production
+		This will also update the currentContext field value in config file as well. kubectl config current-context (to see current context)
+	- What about namespaces? For example, each cluster may be configured with multiple namespaces within it.
+		You can configure a context to switch to a particular namespace when you switch to that context. 
+		
+7.9 Kubernetes API Groups
+	- Whatever operations we have done so far with the cluster, we've been interacting with the API server one way or the other
+		either through kubectl utility or direct api calls
+		curl http://kube-master:6443/version will give cluster version
+	- The Kubernetes API is grouped into multiple such groups based on their purpose such as 
+		/metrics /healthz /version /api /apis /logs
+		metrics and health are used to monitor health of cluster, The logs are used for integrating with third-party logging applications
+	- In this video, we will focus on the APIs responsible for the cluster functionality. which are /api and /apis
+		/api is called core group and /apis is called named group. The core group is where all core functionality exists
+		/api/v1/ (namespaces, pods,nodes,services,configmaps,bindings,endpoints,events,rc,pv,secrets etc)
+	- /apis The named group APIs are more organized and going forward, all the newer features are going to be made available through 
+		these named groups.
+		It has api groups for /apps /extensions /networking.k8s.io /storage.k8s.io /authentication.k8s.io /certificates.k8s.io
+		under api groups it has resources, eg under /apis/apps it has v1/ (deployments, replicastes,statefulsets)
+		under /apis/certificates.k8s.io it has v1/certificatesigningrequest
+		under /apis/networking.k8s.io it has v1/networkpolicies
+		Each resource group (eg deployment, replicasets,networkingpolicies,certificatesigningrequest) there are actions associated with them,
+		these are called verbs. eg /apis/v1/deployments/ (list, get,create, delete, update, watch)
+	- You can also view these on your Kubernetes cluster.Access curl https://kube-cluster:6443 
+	- Quick not about api,If you were to access the API directly through cURL as shown above,then you will not be allowed access
+		except for certain APIs like version, as you have not specified any authentication mechanisms. 
+		So you have to authenticate to the API using your certificate files by passing them in the command line.
+		An alternate option is to start a Kube control proxy client.The Kube control proxy command (kubectl proxy) launches a proxy service 
+		locally on port 8001 and uses credentials and certificates from your Kube config file to access the cluster. That way, you don't have to specify
+		those in the cURL command. http://localhost:8001
+	- Remember not to confuse between kubectl proxy vs kube proxy as they are 2 different serivces. Kube proxy is used to enable connectivity
+		between pods and services across different nodes in the cluster. Whereas Whereas Kube control proxy is an HTTP proxy service created 
+		by Kube control utility to access the Kube API server
+	
+7.10 Authorization:
+	- As an admin, we are able to perform any operation but soon we will have others accessing the cluster as well
+		such as the other administrators,developers,testers or other applications like monitoring applications or continuous delivery 
+		applications like Jenkins, et cetera. But we don't want all of them to have the same level of access as us.
+		When we share our cluster between different organizations or teams, by logically partitioning it using name spaces,
+		we want to restrict access to the users to their name spaces alone. That is what authorization can help you within the cluster
+	- There are different authorization mechanisms supported by Kubernetes, such as node authorization,
+		attribute-based authorization, role-based authorization and webhook
+	- Node Authorizer: We know that the Kube API Server is accessed by users like us for management purposes, as well as the kubelets on node
+		within the cluster for management process within the cluster. The kubelet accesses the API server to read information about services and 
+		points, nodes, and pods.The kubelet also reports to the Kube API Server with information about the node, such as its status
+		These requests are handled by a special authorizer known as the Node Authorizer
+		We know that kubelets should be part of the system nodes group and have a name prefixed with system node. So any request coming from a user
+		with the name system node and part of the system nodes group is authorized by the node authorizer.So that's access within the cluster
+	- Attribute-based authorization: is where you associate a user or a group of users with a set of permissions.
+		In this case, we say the dev user can view, create and delete pods.You do this by creating a policy file with a set of policies defined 
+		in adjacent format this way you pass this file into the API server.
+		{"kind":"Policy","spec":{"user":"dev-user","namespace":"*", "resource":"pods", "apiGroup":"*"}}
+		every time you need to add or make a change in the security, you must edit this policy file manually and restart the Kube API Server.
+		So attribute based authorization is difficult to manage.
+	- Role-based access controls make these much easier.instead of directly associating a user or a group with a set of permissions,
+		we define a role, in this case for developers. We create a role with the set of permissions required for developers
+		then we associate all the developers to that role. If a change is made to role all developers with role will be updated.
+	- Webhooks: if you want to outsource all the authorization mechanisms? Say you want to manage authorization externally
+		and not through the built-in mechanisms that we just discussed. For instance, Open Policy Agent is a third-party tool
+		that helps with admission control and authorization. You can have Kubernetes make an API call to the Open Policy Agent with the information
+		about the user and his access requirements, and have the Open Policy Agent decide if the user should be permitted or not.
+		Based on that response, the user is granted access.
+	- In addition to above 4, there are 2 more modes name as Always Allow and Always Deny.
+	- So, where do you configure these modes. The modes are set using the Authorization Mode Option on the Kube API Server. Always Allow is default
+		--authorization-mode=AllwaysAllow
+		You may provide a comma separated list of multiple modes that you wish to use eg --authorization-mode=Node,RBAC,Webhook
+		your request is authorized using each one in the order it is specified, until its authorization is granted.
+	
+7.11 Role Based Access Control (RBAC)
+	- Creating a role using definition file
+		apiVersion: rbac.authorization.k8s.io/v1
+		kind: Role
+		metadata: 
+			name: developer
+		rules:
+		- apiGroups: [""]
+		  resources: ["pods"]
+		  verbs: ["list","get","create","update","delete"]
+		  resourceNames: ["blue", "green"] (used when you want to restrict access for give named resources only eg pod with names blue or green)
+		- apiGroups: [""]
+		  resources: ["cofigmap"]
+		  verbs: ["create"]
+	- The next step is to link the users to that role. For this, we create another object called role binding
+		apiVersion: rbac.authorization.k8s.io/v1
+		kind: RoleBinding
+		metadata:
+			name: devuser-developer-binding
+		subjects:
+			- kind: User
+			  name: dev-user-1
+			  apiGroup: rbac.authorization.k8s.io
+			roleRef:
+				kind: Role
+				name: developer
+				apiGroup: rbac.authorization.k8s.io
+			
+	- Also note that the roles and role bindings fall under the scope of name spaces. So here the dev user gets access
+		to pods and configmaps within the default name space. If you want to limit the dev user's access
+		within a different name space then specify the name space within the metadata of the definition file while creating them.
+	- commands: kubectl get roles
+				kubectl describe role developer
+				kubectl edit role developer -n=blue
+				kubectl get rolebindings
+				kubectl describe rolebinding devuser-developer-binding
+				kubectl auth can-i create deployments
+				kubectl auth can-i delete pods --as dev-user-1
+				kubectl auth can-i create nodes --as dev-user-1 --namespace test
+				
+
+7.12 Cluster Roles and bindings
+	- We know that roles and role bindings are namespaced, meaning they are created within namespaces. we discussed about namespaces
+		and how it helps in grouping, or isolating, resources like pods, deployments, and services. 
+		But what about other resources like nodes? Can you group or isolate nodes within a namespace? No, those are cluster-wide
+		or cluster-scoped resources. So the resources are categorized as either namespaced or cluster-scoped.
+	- Example of namespaced resources: Pods, Replicasets, deployments, services, secrets, roles, rolebindings,configmaps
+	- Example of cluster scoped resources: nodes, persistent volumes, clusterroles, clusterrolebindings, certificatesigningrequests,namespaces
+	- To see a full list of namespaced and cluster scoped resources run: kubectl api-resources --namspaced=true/false
+	- How do we authorize users to cluster-wide resources like nodes. That is where you use cluster roles and cluster role bindings
+	- Creating a cluster role using definition file
+		apiVersion: rbac.authorization.k8s.io/v1
+		kind: ClusterRole
+		metadata: 
+			name: cluster-administrator
+		rules:
+		- apiGroups: [""]
+		  resources: ["nodes"]
+		  verbs: ["list","get","create","update","delete"]
+	- create cluster role binding
+		apiVersion: rbac.authorization.k8s.io/v1
+		kind: ClusterRoleBinding
+		metadata:
+			name: cluster-admin-binding
+		subjects:
+			- kind: User
+			  name: cluster-admin
+			  apiGroup: rbac.authorization.k8s.io
+			roleRef:
+				kind: ClusterRole
+				name: cluster-administrator
+				apiGroup: rbac.authorization.k8s.io
+	- You can also create a cluster role for namespaced resources as well like Pods. When you do that, the user will have access to these resources
+		across all namespaces. 
+		Kubernetes creates a number of cluster roles by default when the cluster is first set up
+				
+7.13 Service Accounts:
+	- So there are two types of accounts in Kubernetes: a user account and a service account. The user account is used by humans,
+		and service accounts are used by machines. 
+		A service account could be an account used by an application to interact with a Kubernetes cluster. For example, a monitoring application
+		like Prometheus uses a service account to pull the Kubernetes API for performance metrics. An automated build tool like Jenkins
+		uses service accounts to deploy applications on the Kubernetes cluster.
+	- To create a service account run: kubectl create serviceaccount jenkins-sa
+	- To view all service accounts: kubectl get serviceaccounts
+	- Until version 1.21, When the service account is created, it also creates a token (wrapped inside a secret object) automatically. 
+		The service account token is what must be used by the external application while authenticating to the Kubernetes API.
+		You can view secret name by kubectl describe serviceaccount jenkins-sa which has field called token.
+		To view the actual token inside secret run: kubectl describe secret jenkins-sa-token-s33db
+		This token can then be used as an authentication bearer token while making a REST call to the Kubernetes API
+		eg. curl https://kube-cluster:6443/api -insecure --header "Authorization: Bearer eydfkdhfkdhdkhfkdhfkdh"
+	- You can create a service account, assign the right permissions using role-based access control mechanisms, which we did 
+		in previous lecture just put kind: ServiceAccount, and export your service account tokens and use it to configure your
+		third-party application to authenticate to the Kubernetes API
+	- if your third-party application like jenkins is hosted on the Kubernetes cluster itself. 
+		In that case, this whole processof exporting the service account token and configuring the third-party application to use it
+		can be made simple by automatically mounting the service token secret as a volume inside the pod hosting the third-party application.
+		That way, the token to access the Kubernetes API is already placed inside the pod and can be easily read by the application.
+	- For every name space in Kubernetes, a service account named default is automatically created. Each namespace has its own default service account.
+		Whenever a pod is created, the default service account and its token are automatically mounted to that pod as a volume mount.
+		The secret token is mounted at location /var/run/secret/kubernetes.io/serviceaccount inside the pod, you can view by running below command
+		kubectl exec -it pod-name cat /var/run/secret/kubernetes.io/serviceacccount/token
+		you can disable default token mount on the pod by using field automountServiceAccountToken: false
+	- Updates made in version 1.22: if you decode the above token by pasting this token in the JWT website at jwt.io, you'll see that it has no expiry 
+		date defined.  in version 1.22, the TokenRequestAPI was introduced, that aimed to introduce a mechanism for provisioning Kubernetes service 
+		account tokens that are more secure and scalable via an API. They're time bound and object bound, and hence are more secure.
+	- After v1.22 a token with a defined lifetime is generated through the TokenRequestAPI by the service account admission controller when 
+		the pod is created. And this token is then mounted as a projected volume into the pod
+		spec:
+		  volumes:
+		  - name: kube-api-access-6mtee
+		    project: 
+			  defaultMode: 420
+			  sources:
+			  - serviceAccountToken:
+			      expirationInSeconds: 3607
+				  path: token
+	- In version v1.24, another enhancement was made which dealt with the reduction of secret-based service account tokens.
+		 when you create a service account, it no longer automatically creates a secret or a token access secret.
+		 So you must run the command kubectl create token followed by the name of the service account to generate a token for that service account,
+		 if you need one. Default expiry date is 1 hour from creation, you can provide expiry time in command argument
+	- The TokenRequest API is recommended instead of using the service account token secret objects as they are more secure and have 
+		a bounded lifetime
+
+7.13 Image Security:
+	- When we use image name nginx in pod definition file its a docker image. full path of an image is repositor/account/
+		docker.io/library/nginx
+	-  From Docker's perspective,
+		to run a container using a private image, you first log into your private registry using the Docker login command.
+		Input your credentials.
+	- If we need to run a private image in container then, In the Pod definition file we need to put full path of image. 
+		But how does Kubernetes get the credentials to access the private registry? 
+		Within Kubernetes, the images are pulled and run by the Docker runtime on the worker nodes.
+		How do you pass the credentials to the docker run times on the worker node?
+	- For that, we first create a secret object with the credentials in it. The secret is of type docker registry and we name it regcred.
+		Docker registry is a built in secret type that was built for storing Docker credentials.
+		kubectl create secret docker-registry regcred --docker-server= --docker-username= --docker-password= --docker-email=
+	- Then pod definition file spec, containers with imagePullSecrets: - name: reg-cred
+
+7.13 Security in Docker
+	- Let us start with a host with Docker installed on it. This host has a set of its own processes running, such as a number of operating
+		system processes, the Docker daemon itself, the SSH server, et cetera. We will now run an Ubuntu Docker container
+		that runs a process that sleeps for an hour.
+	- We have learned that unlike virtual machines, containers are not completely isolated from their host.
+		Containers and the host share the same kernel. Containers are isolated using namespaces in Linux. The host has a namespace
+		and the containers have their own namespace.All the processes run by the containers are in fact run on the host itself
+		but in their own namespace. Container can see its own processes only. This is process isolation.
+	- For the Docker host, all processes of its own, as well as those in the child namespaces are visible as just another process in the system.
+	- Let us now look at users in context of security. The Docker host has a set of users,a root user, as well as a number of non-root users.
+		By default, Docker runs processes within containers as the root user. you can choose a different user while running container
+		eg. docker run --user=user-a ubuntu sleep 1000
+	- Is the root user within the container has the same ability as the root user on the host? 
+		The root user on host can literally do anything.  Docker implements a set of security features that limits the abilities of the root user
+		within the container.
+		If you wish to override this behavior: docker run --cap-add MAC_ADMIN ubuntu 
+		or with all privileges: docker run --priviledged ubuntu
+
+7.14 Security Context in Kubernets
+	- As we saw in last section, when you run a Docker container, you have the option to define a set of security standards,
+		These can be configured in Kubernetes as well
+	- in Kubernetes, containers are encapsulated in Pods, You may choose to configure the security settings at a container level or at a Pod level
+	- If you configure it at a Pod level, the settings will carry over to all the containers within the Pod
+		the settings on the container will override the settings on the Pod
+	- spec:
+		securityContext:
+			runAsUser: 1000
+			capabilities:
+				add: ["MAC_ADMIN"]
+	- kubectl exec ubuntu-sleeper -- whoami
+
+
+7.15 Network Policies:
+	- There are 2 types of network policies ingress and egress. When you define ingress and egress, remember you're only looking at the direction
+		in which the traffic originated (dont include the response back to the caller)
+	- One of the prerequisite for networking in Kubernetes is whatever solution you implement, the pods should be able to communicate with each other
+		without having to configure any additional settings like routes
+	- Kubernetes is configured by default with an all allow rule that allows traffic from any pod to any other pod or services within the cluster.
+	- If your security requirements does not allow web server to call DB directly (without going through API server) then in that case
+		you implement Network Policy. You can define rules within the network policy. In this case, I would say only allow ingress traffic
+		from the API pod on port 3306
+	- In order to link a network policy to a Pod we use same old technique of Labels and Selectors
+	- Remember that network policies are enforced by the network solution implemented on Kubernetes cluster and not all network solutions 
+		support network policies. 
+		Solutions that support Network Policies: Kube-router, Calico, Romana, Weave-net
+		Solutions that do not support Network policies: Flannel
+	- apiVersion: networking.k8s.io/v1
+	  kind: NetworkPolicy
+	  metadata:
+		name: db-policy
+	  spec:
+		podSelector:
+			matchLabels:
+				role: db
+		policyType:
+		- Ingress
+		- Egress
+		ingress:
+		- from:
+			- podSelector:
+				matchLabels:
+					name: api-pod
+			  namespaceSelector:
+				matchLabels:
+					name: prod
+		    - ipBlock:
+				cidr: 192.168.5.10/32
+			ports:
+			- protocol: TCP
+			  port: 3306
+			  
+		egress:
+		- to:
+			- ipBlock:
+				cidr: 192.168.2.4
+		  
+		    ports
+		
+			 
+	- In above definition podSelector and namespaceSelector works as AND operator while ipBlock is an OR operator 
+	
