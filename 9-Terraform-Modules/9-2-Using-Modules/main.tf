@@ -13,7 +13,7 @@ will hold the application server.
 A dynamodb no SQL database that will be used to
 store the employee and payroll data.
 And then we have an S3 bucket, which will be used to
-store documents such as pay stubs and tax forms.
+store documents such as pay slips and tax forms.
 Users access the application which is hosted on this ec2
 instance.
 

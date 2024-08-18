@@ -1,3 +1,17 @@
+/*
+===========AWS Dynamo DB=================
+DynamoDB is a no SQL database solution provided by AWS.
+It is a highly scalable database that can cope with millions
+of requests from applications such as mobile and web.
+
+Dynamodb is a no SQL database.
+This means that it stores data in the form of key-value pairs
+and documents.
+
+In order to uniquely distinguish an item with every other item
+in the table, DynamoDB uses a primary key.
+*/
+
 provider "aws" {
   region     = "eu-west-1"
   access_key = ""

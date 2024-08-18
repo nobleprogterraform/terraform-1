@@ -3,7 +3,8 @@ how to use them within our terraform configuration.
 
 When dealing with large infrastructure projects with hundreds
 of resources, we can still opt to write the configuration
-with an a single file like this terraform does
+with an a single file
+terraform does
 not impose any limit on the number of resources per
 configuration file.
 However, this would mean
